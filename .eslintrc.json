@@ -19,6 +19,9 @@
     "import/extensions": [2, { "js": "never" }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
+  "globals":{
+    "GMAPS_KEY": true
+  },
   "env": {
     "jest/globals": true
   }

@@ -1,7 +1,12 @@
+require('dotenv').config()
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const {
+  GMAPS_KEY
+} = process.env;
 
 module.exports = {
   entry: {
@@ -40,7 +45,9 @@ module.exports = {
       template: 'src/index.html'
     }),
     new webpack.DefinePlugin({
-      'process.env.API_URL': "'freegeoip.net'"
+      'process.env': {
+        GMAPS_KEY: JSON.stringify(GMAPS_KEY)
+      }
     }),
   ],
   devServer: {

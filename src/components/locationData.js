@@ -35,7 +35,7 @@ export default class LocationData extends Component {
   }
 
   getLocation() {
-    axios.get(`http://${process.env.API_URL}/json/${this.props.url}`)
+    axios.get(`http://freegeoip.net/json/${this.props.url}`)
       .then(({ data }) => this.setState({ locationData: data }))
       .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
   }
