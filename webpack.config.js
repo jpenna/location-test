@@ -1,7 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -38,6 +38,9 @@ module.exports = {
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.API_URL': "'freegeoip.net'"
     }),
   ],
   devServer: {
