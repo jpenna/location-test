@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import Title from 'components/title';
+import LocationData from 'components/locationData';
 
-class App extends Component {
+export default class App extends Component { // eslint-disable-line
   render() {
     return (
       <div>
         <Title />
+        <LocationData />
       </div>
     );
   }
 }
-
-export default ReactDOM.render(
-  <App />,
-  document.querySelector('#container'));
