@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:jest/recommended"],
   "env": {
     "browser": true
   },
@@ -10,9 +10,16 @@
       "jsx": true
     }
   },
-  "plugins": ["react"],
+  "plugins": ["react", "jest"],
+  "settings": {
+    "import/resolver": "webpack"
+  },
   "rules": {
     "semi": 2,
+    "import/extensions": [2, { "js": "never" }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  },
+  "env": {
+    "jest/globals": true
   }
 }
