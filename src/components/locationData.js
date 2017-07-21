@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -25,11 +26,15 @@ export default class LocationData extends Component {
       error: '',
     };
 
-    this.getMyLocation = this.getMyLocation.bind(this);
+    this.getLocation = this.getLocation.bind(this);
   }
 
-  getMyLocation() {
-    axios.get(`http://${process.env.API_URL}/json/`)
+  componentDidUpdate(prevProps) {
+    if (prevProps.url !== this.props.url) this.getLocation();
+  }
+
+  getLocation() {
+    axios.get(`http://${process.env.API_URL}/json/${this.props.url}`)
       .then(({ data }) => this.setState({ locationData: data }))
       .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
   }
@@ -38,10 +43,10 @@ export default class LocationData extends Component {
     return (
       <div>
         <div>
-          <h2>Estimated Location</h2>
+          <h2>{this.props.title}</h2>
         </div>
-        <div>
-          <button onClick={this.getMyLocation}>My Location</button>
+        <div hidden={this.props.hideButton}>
+          <button onClick={this.getLocation}>My Location</button>
         </div>
         <div>
           {LocationData.renderLocationData(this.state.locationData)}
@@ -51,3 +56,14 @@ export default class LocationData extends Component {
     );
   }
 }
+
+LocationData.propTypes = {
+  url: PropTypes.string,
+  hideButton: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+};
+
+LocationData.defaultProps = {
+  url: '',
+  hideButton: false,
+};

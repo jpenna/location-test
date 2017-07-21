@@ -23,8 +23,8 @@ export default class App extends Component {
       <div>
         <Title />
         <InputUrl onSubmit={this.handleUrlSubmit} />
-        <LocationData />
-        <LocationData url={this.state.url} />
+        <LocationData title="Your Location" />
+        <LocationData title="Webpage Location" url={this.state.url} hideButton />
       </div>
     );
   }
