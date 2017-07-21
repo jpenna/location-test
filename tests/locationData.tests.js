@@ -2,7 +2,7 @@
 /*  eslint import/no-unresolved: "off" */
 
 import React from 'react';
-import { render, mount } from 'enzyme';
+import { render, mount, shallow } from 'enzyme';
 
 import LocationData from 'src/components/locationData';
 
@@ -18,7 +18,11 @@ describe('<LocationData />', () => {
   });
 
   it('should have a button to fetch user location', () => {
-    expect(rendered.find('button').length).toEqual(1);
+    expect(rendered.find('button.get-data').length).toEqual(1);
+  });
+
+  it('should have a button to reset user location', () => {
+    expect(rendered.find('button.reset').length).toEqual(1);
   });
 
   it('should return formatted list of location data', () => {
@@ -36,5 +40,14 @@ describe('<LocationData />', () => {
     mounted.setProps({ url: 'ok.com' });
     expect(fetcher).toHaveBeenCalledTimes(1);
     fetcher.mockRestore();
+  });
+
+  it('should reset location data when RESET button is clicked', () => {
+    const locationData = { one: 1, two: 2, three: 3 };
+    const shallowed = shallow(<LocationData title="title" />);
+    shallowed.setState({ locationData });
+    expect(shallowed.state('locationData')).toEqual(locationData);
+    shallowed.find('button.reset').simulate('click');
+    expect(shallowed.state('locationData')).toEqual({});
   });
 });

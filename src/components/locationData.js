@@ -27,6 +27,7 @@ export default class LocationData extends Component {
     };
 
     this.getLocation = this.getLocation.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -39,14 +40,31 @@ export default class LocationData extends Component {
       .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
   }
 
+  reset() {
+    this.setState({ locationData: {} });
+  }
+
   render() {
     return (
       <div>
         <div>
           <h2>{this.props.title}</h2>
+          <button
+            type="button"
+            className="reset"
+            onClick={this.reset}
+            hidden={this.props.hideButton || !Object.keys(this.state.locationData).length}
+          >
+            Reset
+          </button>
         </div>
-        <div hidden={this.props.hideButton}>
-          <button onClick={this.getLocation}>My Location</button>
+        <div hidden={this.props.hideButton || Object.keys(this.state.locationData).length}>
+          <button
+            className="get-data"
+            onClick={this.getLocation}
+          >
+            My Location
+          </button>
         </div>
         <div>
           {LocationData.renderLocationData(this.state.locationData)}
