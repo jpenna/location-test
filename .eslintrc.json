@@ -20,7 +20,9 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
   "globals":{
-    "GMAPS_KEY": true
+    "GMAPS_KEY": true,
+    "google": true,
+    "document": true
   },
   "env": {
     "jest/globals": true
