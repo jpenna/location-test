@@ -2,13 +2,29 @@ import React, { Component } from 'react';
 
 import Title from 'components/title';
 import LocationData from 'components/locationData';
+import InputUrl from 'components/inputUrl';
 
-export default class App extends Component { // eslint-disable-line
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: '',
+    };
+
+    this.handleUrlSubmit = this.handleUrlSubmit.bind(this);
+  }
+
+  handleUrlSubmit(url) {
+    return this.setState({ url });
+  }
+
   render() {
     return (
       <div>
         <Title />
+        <InputUrl onSubmit={this.handleUrlSubmit} />
         <LocationData />
+        <LocationData url={this.state.url} />
       </div>
     );
   }
