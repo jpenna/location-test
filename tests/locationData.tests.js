@@ -2,6 +2,7 @@
 /*  eslint import/no-unresolved: "off" */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { render, mount, shallow } from 'enzyme';
 
 import LocationData from 'src/components/locationData';
@@ -49,5 +50,22 @@ describe('<LocationData />', () => {
     expect(shallowed.state('locationData')).toEqual(locationData);
     shallowed.find('button.reset').simulate('click');
     expect(shallowed.state('locationData')).toEqual({});
+  });
+
+  it('should have the right TypeProps', () => {
+    const propTypes = {
+      url: PropTypes.string,
+      hideButton: PropTypes.bool,
+      title: PropTypes.string.isRequired,
+    };
+    expect(LocationData.propTypes).toEqual(propTypes);
+  });
+
+  it('should have the right DefaultProps', () => {
+    const defaultProps = {
+      url: '',
+      hideButton: false,
+    };
+    expect(LocationData.defaultProps).toEqual(defaultProps);
   });
 });
