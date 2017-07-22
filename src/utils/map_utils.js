@@ -3,7 +3,7 @@ import _ from 'lodash';
 export function getPins(locations, url) {
   return _.reduce(locations, (acc, data, type) => {
     if (!Object.keys(data).length) return acc;
-    const name = type === 'user' ? 'You' : url;
+    const name = type === 'user' ? locations.user.city : url;
     return acc.concat([[name, data.latitude, data.longitude]]);
   }, []);
 }
