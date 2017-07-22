@@ -39,7 +39,10 @@ export default class LocationData extends Component {
         this.props.setLocationData(this.props.type, data);
         this.setState({ error: '' });
       })
-      .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
+      .catch((err) => {
+        console.log(err); // TODO remove console.log
+        this.setState({ error: 'Sorry, couldn\'t fecth data.' });
+      });
   }
 
   reset() {

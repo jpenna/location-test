@@ -38,9 +38,8 @@ export default class App extends Component {
           type={'user'}
         />
         <Map
-          lat={-12}
-          long={123}
           locations={this.state.locations}
+          url={this.state.url}
         />
         <LocationData
           title="Webpage Location"
