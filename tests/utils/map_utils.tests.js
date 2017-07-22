@@ -79,7 +79,7 @@ describe('Map Utils', () => {
     expect(zoom).toEqual(6);
   });
 
-  it('getMapCenter(): should return array with lat and lng', () => {
+  it('getMapCenter(): should return [lat, lng] as mean, when there are 2 positions', () => {
     const expected = [
       ((pins[0][1] + pins[1][1]) / 2).toFixed(5),
       ((pins[0][2] + pins[1][2]) / 2).toFixed(5),
@@ -88,7 +88,20 @@ describe('Map Utils', () => {
     expect(center).toEqual(expected);
   });
 
-  it('getMapCenter(): should return array with lat and lng equal to the single passed value', () => {
+  it('getMapCenter(): should return [lat, lng] when there is one single position', () => {
+    const expected = [pins[0][1].toFixed(5), pins[0][2].toFixed(5)];
+    const center = mapUtils.getMapCenter([pins[0]]);
+    expect(center).toEqual(expected);
+  });
+
+  it('getMapCenter(): should return [0, 0] when pins are empty', () => {
+    const expected = ['0.00000', '0.00000'];
+    const emptyPin = [];
+    const center = mapUtils.getMapCenter(emptyPin);
+    expect(center).toEqual(expected);
+  });
+
+  it('getMapCenter(): should [0, 0] when content is NaN', () => {
     const expected = ['0.00000', '0.00000'];
     const emptyPin = [];
     const center = mapUtils.getMapCenter([emptyPin]);
