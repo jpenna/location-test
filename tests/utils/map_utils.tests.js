@@ -18,13 +18,13 @@ describe('Map Utils', () => {
     locations = {
       user: {
         city: 'Belo Horizonte',
-        latitude: 1,
-        longitude: 2,
+        latitude: 1123,
+        longitude: 2124,
       },
       web: {
         city: 'Mountain View',
-        latitude: 3,
-        longitude: 4,
+        latitude: 31234,
+        longitude: 21354,
       },
     };
 
@@ -53,6 +53,12 @@ describe('Map Utils', () => {
     expect(result).toEqual(pins);
   });
 
+  it('getPins(): should return null if there is no locations', () => {
+    const emptyLocations = { user: {}, web: {} };
+    const result = mapUtils.getPins(emptyLocations, url);
+    expect(result).toEqual([]);
+  });
+
   it('getMapZoom(): should return zoom number (considering small distance)', () => {
     calcDistance.mockReturnValue(1000);
     const expected = parseInt((1 / Math.pow(1000, 0.05)) * 10, 10); // eslint-disable-line
@@ -79,6 +85,13 @@ describe('Map Utils', () => {
       ((pins[0][2] + pins[1][2]) / 2).toFixed(5),
     ];
     const center = mapUtils.getMapCenter(pins);
+    expect(center).toEqual(expected);
+  });
+
+  it('getMapCenter(): should return array with lat and lng equal to the single passed value', () => {
+    const expected = ['0.00000', '0.00000'];
+    const emptyPin = [];
+    const center = mapUtils.getMapCenter([emptyPin]);
     expect(center).toEqual(expected);
   });
 

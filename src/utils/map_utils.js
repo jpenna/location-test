@@ -27,7 +27,10 @@ export function getMapZoom(pins) {
 export function getMapCenter(pins) {
   return pins
     .reduce(
-      (acc, data) => [acc[0] + data[1], acc[1] + data[2]],
+      (acc, data) => [
+        acc[0] + data[1] || acc[0],
+        acc[1] + data[2] || acc[1],
+      ],
       [0, 0] // eslint-disable-line comma-dangle
     )
     .map((val) => {
