@@ -18,7 +18,6 @@ module.exports = {
       'react-hot-loader/patch',
       './index.js',
     ],
-    vendor: Object.keys(pkg.dependencies),
     vendor: vendorPackages,
   },
   output: {

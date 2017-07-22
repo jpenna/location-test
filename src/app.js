@@ -28,27 +28,29 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <Title />
-        <InputUrl onSubmit={this.handleUrlSubmit} />
-        <LocationData
-          title="Your Location"
-          locationData={this.state.locations.user}
-          setLocationData={this.setLocationData}
-          type={'user'}
-        />
-        <Map
-          locations={this.state.locations}
-          url={this.state.url}
-        />
-        <LocationData
-          title="Webpage Location"
-          url={this.state.url}
-          locationData={this.state.locations.web}
-          setLocationData={this.setLocationData}
-          type={'web'}
-          hideButton
-        />
+      <div className="section">
+        <div className="container">
+          <Title />
+          <InputUrl onSubmit={this.handleUrlSubmit} />
+          <LocationData
+            title="Your Location"
+            locationData={this.state.locations.user}
+            setLocationData={this.setLocationData}
+            type={'user'}
+          />
+          <Map
+            locations={this.state.locations}
+            url={this.state.url}
+          />
+          <LocationData
+            title="Webpage Location"
+            url={this.state.url}
+            locationData={this.state.locations.web}
+            setLocationData={this.setLocationData}
+            type={'web'}
+            hideButton
+          />
+        </div>
       </div>
     );
   }
