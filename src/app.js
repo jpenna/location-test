@@ -10,9 +10,16 @@ export default class App extends Component {
     super(props);
     this.state = {
       url: '',
+      locations: { user: {}, web: {} },
     };
 
     this.handleUrlSubmit = this.handleUrlSubmit.bind(this);
+    this.setLocationData = this.setLocationData.bind(this);
+  }
+
+  setLocationData(prop, data) {
+    const locations = Object.assign({}, this.state.locations, { [prop]: data });
+    return this.setState({ locations });
   }
 
   handleUrlSubmit(url) {
@@ -24,9 +31,25 @@ export default class App extends Component {
       <div>
         <Title />
         <InputUrl onSubmit={this.handleUrlSubmit} />
-        <LocationData title="Your Location" />
-        <Map lat={-12} long={123} />
-        <LocationData title="Webpage Location" url={this.state.url} hideButton />
+        <LocationData
+          title="Your Location"
+          locationData={this.state.locations.user}
+          setLocationData={this.setLocationData}
+          type={'user'}
+        />
+        <Map
+          lat={-12}
+          long={123}
+          locations={this.state.locations}
+        />
+        <LocationData
+          title="Webpage Location"
+          url={this.state.url}
+          locationData={this.state.locations.web}
+          setLocationData={this.setLocationData}
+          type={'web'}
+          hideButton
+        />
       </div>
     );
   }

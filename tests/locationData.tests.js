@@ -9,9 +9,21 @@ import LocationData from 'src/components/locationData';
 
 describe('<LocationData />', () => {
   let rendered;
+  let props;
 
   beforeAll(() => {
-    rendered = render(<LocationData title="title" />);
+    props = {
+      title: 'title',
+      locationData: {},
+      setLocationData: jest.fn(),
+      type: 'user',
+    };
+
+    rendered = render(<LocationData {...props} />);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should have H2 title', () => {
@@ -37,19 +49,26 @@ describe('<LocationData />', () => {
 
   it('should get location automatically if URL is defined', () => {
     const fetcher = jest.spyOn(LocationData.prototype, 'getLocation');
-    const mounted = mount(<LocationData title="title" />);
+    const mounted = mount(<LocationData {...props} />);
     mounted.setProps({ url: 'ok.com' });
     expect(fetcher).toHaveBeenCalledTimes(1);
     fetcher.mockRestore();
   });
 
   it('should reset location data when RESET button is clicked', () => {
-    const locationData = { one: 1, two: 2, three: 3 };
-    const shallowed = shallow(<LocationData title="title" />);
-    shallowed.setState({ locationData });
-    expect(shallowed.state('locationData')).toEqual(locationData);
+    const shallowed = shallow(<LocationData {...props} />);
     shallowed.find('button.reset').simulate('click');
-    expect(shallowed.state('locationData')).toEqual({});
+    expect(props.setLocationData).toHaveBeenCalledTimes(1);
+  });
+
+  it('should hide GET DATA button if props says so', () => {
+    const renderedHidden = render(<LocationData {...props} hideButton />);
+    expect(renderedHidden.find('button.get-data').parent().attr('hidden')).toEqual('hidden');
+  });
+
+  it('should hide RESET button if props says so', () => {
+    const renderedHidden = render(<LocationData {...props} hideButton />);
+    expect(renderedHidden.find('button.reset').attr('hidden')).toEqual('hidden');
   });
 
   it('should have the right TypeProps', () => {
@@ -57,6 +76,9 @@ describe('<LocationData />', () => {
       url: PropTypes.string,
       hideButton: PropTypes.bool,
       title: PropTypes.string.isRequired,
+      setLocationData: PropTypes.func.isRequired,
+      locationData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+      type: PropTypes.string.isRequired,
     };
     expect(LocationData.propTypes).toEqual(propTypes);
   });
@@ -65,6 +87,7 @@ describe('<LocationData />', () => {
     const defaultProps = {
       url: '',
       hideButton: false,
+      locationData: {},
     };
     expect(LocationData.defaultProps).toEqual(defaultProps);
   });

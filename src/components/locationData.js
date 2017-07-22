@@ -22,7 +22,6 @@ export default class LocationData extends Component {
     super(props);
 
     this.state = {
-      locationData: {},
       error: '',
     };
 
@@ -36,12 +35,15 @@ export default class LocationData extends Component {
 
   getLocation() {
     axios.get(`http://freegeoip.net/json/${this.props.url}`)
-      .then(({ data }) => this.setState({ locationData: data }))
+      .then(({ data }) => {
+        this.props.setLocationData(this.props.type, data);
+        this.setState({ error: '' });
+      })
       .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
   }
 
   reset() {
-    this.setState({ locationData: {} });
+    this.props.setLocationData(this.props.type, {});
   }
 
   render() {
@@ -53,12 +55,12 @@ export default class LocationData extends Component {
             type="button"
             className="reset"
             onClick={this.reset}
-            hidden={this.props.hideButton || !Object.keys(this.state.locationData).length}
+            hidden={this.props.hideButton || !Object.keys(this.props.locationData).length}
           >
             Reset
           </button>
         </div>
-        <div hidden={this.props.hideButton || Object.keys(this.state.locationData).length}>
+        <div hidden={this.props.hideButton || Object.keys(this.props.locationData).length}>
           <button
             className="get-data"
             onClick={this.getLocation}
@@ -67,7 +69,7 @@ export default class LocationData extends Component {
           </button>
         </div>
         <div>
-          {LocationData.renderLocationData(this.state.locationData)}
+          {LocationData.renderLocationData(this.props.locationData)}
           <div>{this.state.error}</div>
         </div>
       </div>
@@ -79,9 +81,13 @@ LocationData.propTypes = {
   url: PropTypes.string,
   hideButton: PropTypes.bool,
   title: PropTypes.string.isRequired,
+  setLocationData: PropTypes.func.isRequired,
+  locationData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  type: PropTypes.string.isRequired,
 };
 
 LocationData.defaultProps = {
   url: '',
   hideButton: false,
+  locationData: {},
 };

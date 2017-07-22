@@ -10,7 +10,7 @@ import Title from 'src/components/title';
 describe('<App />', () => {
   let shallowed;
 
-  beforeEach(() => {
+  beforeAll(() => {
     shallowed = shallow(<App />);
   });
 
@@ -25,6 +25,15 @@ describe('<App />', () => {
 
   it('should have <InputUrl /> component', () => {
     expect(shallowed.find('InputUrl').length).toEqual(1);
+  });
+
+  it('should set locationData when setLocationData() is called with params', () => {
+    const type = 'user';
+    const data = { data: 'location' };
+    jest.spyOn(App.prototype, 'setState');
+    shallowed.instance().setLocationData(type, data);
+    expect(App.prototype.setState).toHaveBeenCalledWith({ locations: { [type]: data, web: {} } });
+    App.prototype.setState.mockRestore();
   });
 
   it('should set URL on input component submit', () => {
