@@ -4,12 +4,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { render, mount, shallow } from 'enzyme';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import LocationData from 'src/components/locationData';
+
+const axiosMock = new MockAdapter(axios);
 
 describe('<LocationData />', () => {
   let rendered;
   let props;
+  let url;
+  let axiosResponse;
 
   beforeAll(() => {
     props = {
@@ -18,12 +24,24 @@ describe('<LocationData />', () => {
       setLocationData: jest.fn(),
       type: 'user',
     };
+    url = 'ok.com';
+    axiosResponse = { data: 'data' };
 
     rendered = render(<LocationData {...props} />);
   });
 
+  beforeEach(() => {
+    axiosMock.onGet(`http://freegeoip.net/json/${url}`)
+      .reply(200, axiosResponse);
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
+    axiosMock.reset();
+  });
+
+  afterAll(() => {
+    axiosMock.restore();
   });
 
   it('should have H2 title', () => {
@@ -50,9 +68,36 @@ describe('<LocationData />', () => {
   it('should get location automatically if URL is defined', () => {
     const fetcher = jest.spyOn(LocationData.prototype, 'getLocation');
     const mounted = mount(<LocationData {...props} />);
-    mounted.setProps({ url: 'ok.com' });
+    mounted.setProps({ url });
     expect(fetcher).toHaveBeenCalledTimes(1);
     fetcher.mockRestore();
+  });
+
+  it('getLocation() should call props.setLocation with type and data', () => {
+    const setLocationData = jest.fn();
+    const context = {
+      props: { url, setLocationData, type: 'ops' },
+      setState: jest.fn(),
+    };
+    return LocationData.prototype.getLocation.call(context)
+      .then(() => {
+        expect(setLocationData.mock.calls).toEqual([[context.props.type, axiosResponse]]);
+        expect(context.setState.mock.calls).toEqual([[{ error: '' }]]);
+      });
+  });
+
+  it('getLocation() should set error on exception', () => {
+    const urlError = 'error';
+    axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
+      .networkError();
+    const context = {
+      setState: jest.fn(),
+      props: { url: urlError, setLocationData: () => {} },
+    };
+    return LocationData.prototype.getLocation.call(context)
+      .then(() => {
+        expect(context.setState.mock.calls).toEqual([[{ error: 'Sorry, couldn\'t fecth data.' }]]);
+      });
   });
 
   it('should reset location data when RESET button is clicked', () => {

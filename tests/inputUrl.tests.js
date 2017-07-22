@@ -44,7 +44,7 @@ describe('<InputUrl />', () => {
   });
 
   it('should render correctly', () => {
-    const rendered = renderer.create(<InputUrl />).toJSON();
+    const rendered = renderer.create(<InputUrl onSubmit={handleSubmit} />).toJSON();
     expect(rendered).toMatchSnapshot();
   });
 });
