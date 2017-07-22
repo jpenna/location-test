@@ -4,8 +4,8 @@
   "description": "This is a geolocation app to find both the user location as well as a given webpage server location",
   "main": "index.js",
   "scripts": {
-    "server": "webpack-dev-server --port 5000",
-    "build-dev": "rimraf ./dist && webpack",
+    "server": "webpack-dev-server -d --devtool source-map --port 5000",
+    "build-dev": "rimraf ./dist && webpack -d",
     "build": "rimraf ./dist && webpack -p",
     "test": "jest --expand",
     "test-watch": "npm test -- --watch"
@@ -19,6 +19,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-hot-loader": "next",
     "react-load-script": "^0.0.6"
   },
   "devDependencies": {

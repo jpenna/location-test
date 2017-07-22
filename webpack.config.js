@@ -1,16 +1,21 @@
-require('dotenv').config()
+require('dotenv').config();
 const path = require('path');
+const pkg = require('./package.json');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const {
-  GMAPS_KEY
+  GMAPS_KEY,
 } = process.env;
 
 module.exports = {
   entry: {
-    bundle: './index.js',
+    bundle: [
+      'react-hot-loader/patch',
+      './index.js',
+    ],
+    vendor: Object.keys(pkg.dependencies),
   },
   output: {
     path: path.join(__dirname, '/dist'),
@@ -21,15 +26,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader?cacheDirectory=true',
-        exclude: /node_modules/
+        use: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.([cs][ac]?ss)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
     ],
   },
@@ -40,19 +45,26 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        GMAPS_KEY: JSON.stringify(GMAPS_KEY)
-      }
+        GMAPS_KEY: JSON.stringify(GMAPS_KEY),
+      },
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.min-[hash].js',
     }),
   ],
+  devtool: 'source-map',
   devServer: {
+    hot: true,
     historyApiFallback: true,
     contentBase: './',
     host: '0.0.0.0',
-  }
-}
+  },
+};
