@@ -1,9 +1,62 @@
 @import '../../node_modules/bulma/sass/utilities/initial-variables';
 
-// Custom styles
+// Variable Customization
 
 @import '../../node_modules/bulma/bulma';
 
 .map-frame {
   height: 400px;
+}
+
+// Helpers
+.is-borderless {
+  border: 0;
+}
+
+.is-capitalized {
+  text-transform: capitalize;
+}
+
+.is-bold {
+  font-weight: 400;
+}
+
+.is-7 {
+  font-size: .8rem;
+}
+
+.margin-bottom-half {
+  margin-bottom: .5rem;
+}
+
+.is-danger {
+  &.inverted {
+    background: transparent;
+    color: $grey-light;
+
+    &:hover {
+      background: transparent;
+      color: $red;
+    }
+
+    &:focus {
+      background: transparent;
+      border-color: inherit;
+      box-shadow: none;
+      color: inherit;
+    }
+
+    &:active {
+      background: transparent;
+      box-shadow: none;
+      color: darken($red, 2.5%);
+    }
+  }
+}
+
+
+// Custom
+.reset-button {
+  margin-left: 1em;
+  margin-right: 0;
 }

@@ -69,7 +69,6 @@ module.exports = {
   ],
   devtool: 'source-map',
   devServer: {
-    hot: true,
     historyApiFallback: true,
     contentBase: './',
     host: '0.0.0.0',

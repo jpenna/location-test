@@ -63,17 +63,31 @@ exports[`<App /> should render correctly 1`] = `
       >
         <div>
           <div>
-            <h2>
-              Your Location
-            </h2>
-            <button
-              className="reset"
-              hidden={true}
-              onClick={[Function]}
-              type="button"
-            >
-              Reset
-            </button>
+            <div>
+              <h3
+                className="title is-5 is-inline-block"
+              >
+                Your Location
+              </h3>
+              <span
+                className="field"
+                hidden={true}
+              >
+                <button
+                  className="reset-button button is-small is-borderless is-danger inverted"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <span
+                    className="icon is-small"
+                  >
+                    <i
+                      className="fa fa-trash"
+                    />
+                  </span>
+                </button>
+              </span>
+            </div>
           </div>
           <div
             hidden={0}
@@ -108,17 +122,31 @@ exports[`<App /> should render correctly 1`] = `
       >
         <div>
           <div>
-            <h2>
-              Webpage Location
-            </h2>
-            <button
-              className="reset"
-              hidden={true}
-              onClick={[Function]}
-              type="button"
-            >
-              Reset
-            </button>
+            <div>
+              <h3
+                className="title is-5 is-inline-block"
+              >
+                Webpage Location
+              </h3>
+              <span
+                className="field"
+                hidden={true}
+              >
+                <button
+                  className="reset-button button is-small is-borderless is-danger inverted"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <span
+                    className="icon is-small"
+                  >
+                    <i
+                      className="fa fa-trash"
+                    />
+                  </span>
+                </button>
+              </span>
+            </div>
           </div>
           <div
             hidden={true}

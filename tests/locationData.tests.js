@@ -4,6 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { render, mount, shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -20,7 +21,7 @@ describe('<LocationData />', () => {
   beforeAll(() => {
     props = {
       title: 'title',
-      locationData: {},
+      locationData: { local: 'local' },
       setLocationData: jest.fn(),
       type: 'user',
     };
@@ -44,8 +45,8 @@ describe('<LocationData />', () => {
     axiosMock.restore();
   });
 
-  it('should have H2 title', () => {
-    expect(rendered.find('h2').text()).toEqual('title');
+  it('should have H3 title', () => {
+    expect(rendered.find('h3').length).toEqual(1);
   });
 
   it('should have a button to fetch user location', () => {
@@ -53,14 +54,14 @@ describe('<LocationData />', () => {
   });
 
   it('should have a button to reset user location', () => {
-    expect(rendered.find('button.reset').length).toEqual(1);
+    expect(rendered.find('button.reset-button').length).toEqual(1);
   });
 
   it('should return formatted list of location data', () => {
     const data = { user: 'me', null: '', how: 'what' };
     const list = LocationData.renderLocationData(data);
-    const listRendered = render(<span>{list}</span>);
-    expect(listRendered.find('div')).toHaveLength(2);
+    const listRendered = render(<div>{list}</div>);
+    expect(listRendered.find('div').first().children()).toHaveLength(2);
     expect(listRendered.html().search('user') > 0).toBeTruthy();
     expect(listRendered.html().search('what') > 0).toBeTruthy();
   });
@@ -102,7 +103,7 @@ describe('<LocationData />', () => {
 
   it('should reset location data when RESET button is clicked', () => {
     const shallowed = shallow(<LocationData {...props} />);
-    shallowed.find('button.reset').simulate('click');
+    shallowed.find('button.reset-button').simulate('click');
     expect(props.setLocationData).toHaveBeenCalledTimes(1);
   });
 
@@ -113,7 +114,7 @@ describe('<LocationData />', () => {
 
   it('should hide RESET button if props says so', () => {
     const renderedHidden = render(<LocationData {...props} hideButton />);
-    expect(renderedHidden.find('button.reset').attr('hidden')).toEqual('hidden');
+    expect(renderedHidden.find('button.reset-button').parent().attr('hidden')).toEqual('hidden');
   });
 
   it('should have the right TypeProps', () => {
@@ -135,5 +136,10 @@ describe('<LocationData />', () => {
       locationData: {},
     };
     expect(LocationData.defaultProps).toEqual(defaultProps);
+  });
+
+  it('should render correctly', () => {
+    const renderedJSON = renderer.create(<LocationData {...props} />).toJSON();
+    expect(renderedJSON).toMatchSnapshot();
   });
 });

@@ -9,12 +9,15 @@ export default class LocationData extends Component {
   static renderLocationData(locationData) {
     return _(locationData)
       .omitBy(value => value === '')
-      .map((value, key) => (
-        <div key={key}>
-          <span>{key}</span>
-          <span>{value}</span>
-        </div>
-      ))
+      .map((value, key) => {
+        const keyName = key === 'ip' ? 'IP' : key.replace('_', ' ');
+        return (
+          <div key={key} className="margin-bottom-half">
+            <div className="title is-7 is-bold is-capitalized">{keyName}</div>
+            <div className="subtitle is-6">{value}</div>
+          </div>
+        );
+      })
       .value();
   }
 
@@ -54,15 +57,23 @@ export default class LocationData extends Component {
     return (
       <div>
         <div>
-          <h2>{this.props.title}</h2>
-          <button
-            type="button"
-            className="reset"
-            onClick={this.reset}
-            hidden={this.props.hideButton || !Object.keys(this.props.locationData).length}
-          >
-            Reset
-          </button>
+          <div>
+            <h3 className="title is-5 is-inline-block">{this.props.title}</h3>
+            <span
+              className="field"
+              hidden={this.props.hideButton || !Object.keys(this.props.locationData).length}
+            >
+              <button
+                type="button"
+                className="reset-button button is-small is-borderless is-danger inverted"
+                onClick={this.reset}
+              >
+                <span className="icon is-small">
+                  <i className="fa fa-trash" />
+                </span>
+              </button>
+            </span>
+          </div>
         </div>
         <div hidden={this.props.hideButton || Object.keys(this.props.locationData).length}>
           <button
