@@ -1,0 +1,64 @@
+.is-borderless {
+  border: 0;
+}
+
+.is-capitalized {
+  text-transform: capitalize;
+}
+
+.is-bold {
+  font-weight: 400;
+}
+
+.is-7 {
+  font-size: .8rem;
+}
+
+.is-rounded {
+  border-radius: 50%;
+}
+
+.is-buttonless {
+  background: transparent;
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.margin-bottom- {
+  // sass-lint:disable no-important
+  &half { margin-bottom: .5rem !important; }
+  &1 { margin-bottom: 1rem !important; }
+  &2 { margin-bottom: 2rem !important; }
+}
+
+.is-danger {
+  &.inverted {
+    background: transparent;
+    color: $grey-light;
+
+    &:hover {
+      background: transparent;
+      color: $red;
+    }
+
+    &:focus {
+      background: transparent;
+      border-color: inherit;
+      box-shadow: none;
+      color: inherit;
+    }
+
+    &:active {
+      background: transparent;
+      box-shadow: none;
+      color: darken($red, 2.5%);
+    }
+  }
+}
