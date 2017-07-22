@@ -19,7 +19,7 @@ exports[`<LocationData /> should render correctly 1`] = `
           type="button"
         >
           <span
-            className="icon is-small"
+            className="icon"
           >
             <i
               className="fa fa-trash"
@@ -33,10 +33,21 @@ exports[`<LocationData /> should render correctly 1`] = `
     hidden={1}
   >
     <button
-      className="get-data"
+      className="get-location-button is-buttonless pointer"
       onClick={[Function]}
     >
-      My Location
+      <div
+        className="icon button is-info is-rounded margin-bottom-half"
+      >
+        <i
+          className="fa fa-map-marker"
+        />
+      </div>
+      <div
+        className="title is-6"
+      >
+        My Location
+      </div>
     </button>
   </div>
   <div>

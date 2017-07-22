@@ -42,11 +42,7 @@ export default class LocationData extends Component {
         this.props.setLocationData(this.props.type, data);
         this.setState({ error: '' });
       })
-      .catch((err) => {
-        // TODO remove console.log
-        console.log(err); // eslint-disable-line
-        this.setState({ error: 'Sorry, couldn\'t fecth data.' });
-      });
+      .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
   }
 
   reset() {
@@ -68,7 +64,7 @@ export default class LocationData extends Component {
                 className="reset-button button is-small is-borderless is-danger inverted"
                 onClick={this.reset}
               >
-                <span className="icon is-small">
+                <span className="icon">
                   <i className="fa fa-trash" />
                 </span>
               </button>
@@ -77,10 +73,15 @@ export default class LocationData extends Component {
         </div>
         <div hidden={this.props.hideButton || Object.keys(this.props.locationData).length}>
           <button
-            className="get-data"
+            className="get-location-button is-buttonless pointer"
             onClick={this.getLocation}
           >
-            My Location
+            <div className="icon button is-info is-rounded margin-bottom-half">
+              <i className="fa fa-map-marker" />
+            </div>
+            <div className="title is-6">
+              My Location
+            </div>
           </button>
         </div>
         <div>

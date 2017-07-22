@@ -50,7 +50,7 @@ describe('<LocationData />', () => {
   });
 
   it('should have a button to fetch user location', () => {
-    expect(rendered.find('button.get-data').length).toEqual(1);
+    expect(rendered.find('button.get-location-button').length).toEqual(1);
   });
 
   it('should have a button to reset user location', () => {
@@ -58,11 +58,11 @@ describe('<LocationData />', () => {
   });
 
   it('should return formatted list of location data', () => {
-    const data = { user: 'me', null: '', how: 'what' };
+    const data = { ip: 'me', null: '', how: 'what' };
     const list = LocationData.renderLocationData(data);
     const listRendered = render(<div>{list}</div>);
     expect(listRendered.find('div').first().children()).toHaveLength(2);
-    expect(listRendered.html().search('user') > 0).toBeTruthy();
+    expect(listRendered.html().search('IP') > 0).toBeTruthy();
     expect(listRendered.html().search('what') > 0).toBeTruthy();
   });
 
@@ -109,7 +109,7 @@ describe('<LocationData />', () => {
 
   it('should hide GET DATA button if props says so', () => {
     const renderedHidden = render(<LocationData {...props} hideButton />);
-    expect(renderedHidden.find('button.get-data').parent().attr('hidden')).toEqual('hidden');
+    expect(renderedHidden.find('button.get-location-button').parent().attr('hidden')).toEqual('hidden');
   });
 
   it('should hide RESET button if props says so', () => {

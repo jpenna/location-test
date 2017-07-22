@@ -4,10 +4,6 @@
 
 @import '../../node_modules/bulma/bulma';
 
-.map-frame {
-  height: 400px;
-}
-
 // Helpers
 .is-borderless {
   border: 0;
@@ -25,9 +21,27 @@
   font-size: .8rem;
 }
 
+.is-rounded {
+  border-radius: 50%;
+}
+
+.is-buttonless {
+  background: transparent;
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 .margin-bottom- {
   // sass-lint:disable no-important
   &half { margin-bottom: .5rem !important; }
+  &1 { margin-bottom: 1rem !important; }
   &2 { margin-bottom: 2rem !important; }
 }
 
@@ -58,7 +72,23 @@
 
 
 // Custom
+.map-frame {
+  min-height: 400px;
+}
+
 .reset-button {
   margin-left: 1em;
   margin-right: 0;
+}
+
+.get-location-button {
+  .icon {
+    padding: 25px;
+
+    i {
+      &::before {
+        font-size: 2rem;
+      }
+    }
+  }
 }
