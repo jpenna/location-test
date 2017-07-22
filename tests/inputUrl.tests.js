@@ -2,6 +2,7 @@
 /*  eslint import/no-unresolved: "off" */
 
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import InputUrl from 'src/components/inputUrl';
@@ -40,5 +41,10 @@ describe('<InputUrl />', () => {
     expect(regex.test('url')).toBeFalsy();
     expect(regex.test('http://url.com')).toBeFalsy();
     expect(regex.test('')).toBeFalsy();
+  });
+
+  it('should render correctly', () => {
+    const rendered = renderer.create(<InputUrl />).toJSON();
+    expect(rendered).toMatchSnapshot();
   });
 });

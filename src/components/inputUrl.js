@@ -24,15 +24,22 @@ export default class InputUrl extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleUrlSubmit}>
-          <input
-            value={this.state.url}
-            type="text"
-            pattern="^[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)"
-            onChange={this.handleChange}
-          />
-          <button type="submit">Go!</button>
+      <div className="content">
+        <form className="has-text-centered" onSubmit={this.handleUrlSubmit}>
+          <div className="field has-addons has-addons-centered">
+            <div className="control">
+              <input
+                className="input"
+                value={this.state.url}
+                type="text"
+                pattern="^[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <button type="submit" className="button is-primary">Go!</button>
+            </div>
+          </div>
         </form>
       </div>
     );
