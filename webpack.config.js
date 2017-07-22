@@ -59,6 +59,10 @@ module.exports = {
       name: 'vendor',
       filename: 'vendor.min-[hash].js',
     }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].[hash].js.map',
+      exclude: ['vendor.min-[hash].js'],
+    }),
   ],
   devtool: 'source-map',
   devServer: {
