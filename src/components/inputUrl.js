@@ -32,12 +32,13 @@ export default class InputUrl extends Component {
                 className="input"
                 value={this.state.url}
                 type="text"
+                placeholder="website.com"
                 pattern="^[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)"
                 onChange={this.handleChange}
               />
             </div>
             <div className="control">
-              <button type="submit" className="button is-primary">Go!</button>
+              <button type="submit" className="button is-primary">Locate!</button>
             </div>
           </div>
         </form>

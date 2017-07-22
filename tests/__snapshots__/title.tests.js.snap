@@ -12,7 +12,7 @@ exports[`<Title /> should render correctly 1`] = `
   <h2
     className="subtitle has-margin-bottom-10"
   >
-    Find yourself
+    Find you and a website
   </h2>
 </div>
 `;

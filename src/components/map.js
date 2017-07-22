@@ -50,6 +50,9 @@ export default class Map extends Component {
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
       center: new google.maps.LatLng(-15, -50),
+      mapTypeControl: false,
+      streetViewControl: false,
+      rotateControl: false,
     });
 
     this.infowindow = new google.maps.InfoWindow();

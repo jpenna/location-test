@@ -18,6 +18,7 @@ exports[`<InputUrl /> should render correctly 1`] = `
           className="input"
           onChange={[Function]}
           pattern="^[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#?&=]*)"
+          placeholder="website.com"
           type="text"
           value=""
         />
@@ -29,7 +30,7 @@ exports[`<InputUrl /> should render correctly 1`] = `
           className="button is-primary"
           type="submit"
         >
-          Go!
+          Locate!
         </button>
       </div>
     </div>

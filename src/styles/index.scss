@@ -1,8 +1,14 @@
+// sass-lint:disable force-pseudo-nesting
+
 @import '../../node_modules/bulma/sass/utilities/initial-variables';
 
 // Variable Customization
 
 @import '../../node_modules/bulma/bulma';
+
+input::placeholder {
+  color: $grey-lighter;
+}
 
 @import './helpers';
 @import './style';

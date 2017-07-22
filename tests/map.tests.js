@@ -85,7 +85,16 @@ describe('<Map />', () => {
 
   it('renderMap() should set this.map and this.infowindow', () => {
     Map.prototype.renderMap();
-    expect(mapMock.mock.calls).toEqual([[null, { center: [-15, -50], zoom: 4 }]]);
+    expect(mapMock.mock.calls).toEqual([[
+      null,
+      {
+        center: [-15, -50],
+        zoom: 4,
+        mapTypeControl: false,
+        rotateControl: false,
+        streetViewControl: false,
+      },
+    ]]);
     expect(infoWindowMock).toHaveBeenCalledTimes(1);
   });
 

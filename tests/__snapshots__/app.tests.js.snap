@@ -21,7 +21,7 @@ exports[`<App /> should render correctly 1`] = `
         <h2
           className="subtitle has-margin-bottom-10"
         >
-          Find yourself
+          Find you and a website
         </h2>
       </div>
     </div>
@@ -45,6 +45,7 @@ exports[`<App /> should render correctly 1`] = `
                 className="input"
                 onChange={[Function]}
                 pattern="^[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#?&=]*)"
+                placeholder="website.com"
                 type="text"
                 value=""
               />
@@ -56,7 +57,7 @@ exports[`<App /> should render correctly 1`] = `
                 className="button is-primary"
                 type="submit"
               >
-                Go!
+                Locate!
               </button>
             </div>
           </div>
@@ -82,7 +83,7 @@ exports[`<App /> should render correctly 1`] = `
                 hidden={true}
               >
                 <button
-                  className="reset-button button is-small is-borderless is-danger inverted"
+                  className="reset-button button is-small is-borderless is-danger inverted text-bottom-align"
                   onClick={[Function]}
                   type="button"
                 >
@@ -98,6 +99,7 @@ exports[`<App /> should render correctly 1`] = `
             </div>
           </div>
           <div
+            className="section"
             hidden={0}
           >
             <button
@@ -117,6 +119,18 @@ exports[`<App /> should render correctly 1`] = `
                 My Location
               </div>
             </button>
+          </div>
+          <div
+            className="section"
+            hidden={true}
+          >
+            <div
+              className="content has-text-centered"
+            >
+              Let's get some page info?
+              <br />
+              Type in a URL above
+            </div>
           </div>
           <div>
             <div>
@@ -152,7 +166,7 @@ exports[`<App /> should render correctly 1`] = `
                 hidden={true}
               >
                 <button
-                  className="reset-button button is-small is-borderless is-danger inverted"
+                  className="reset-button button is-small is-borderless is-danger inverted text-bottom-align"
                   onClick={[Function]}
                   type="button"
                 >
@@ -168,6 +182,7 @@ exports[`<App /> should render correctly 1`] = `
             </div>
           </div>
           <div
+            className="section"
             hidden={true}
           >
             <button
@@ -187,6 +202,18 @@ exports[`<App /> should render correctly 1`] = `
                 My Location
               </div>
             </button>
+          </div>
+          <div
+            className="section"
+            hidden={0}
+          >
+            <div
+              className="content has-text-centered"
+            >
+              Let's get some page info?
+              <br />
+              Type in a URL above
+            </div>
           </div>
           <div>
             <div>
