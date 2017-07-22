@@ -32,24 +32,32 @@ export default class App extends Component {
         <div className="container">
           <Title />
           <InputUrl onSubmit={this.handleUrlSubmit} />
-          <LocationData
-            title="Your Location"
-            locationData={this.state.locations.user}
-            setLocationData={this.setLocationData}
-            type={'user'}
-          />
-          <Map
-            locations={this.state.locations}
-            url={this.state.url}
-          />
-          <LocationData
-            title="Webpage Location"
-            url={this.state.url}
-            locationData={this.state.locations.web}
-            setLocationData={this.setLocationData}
-            type={'web'}
-            hideButton
-          />
+          <div className="columns">
+            <div className="column has-text-right">
+              <LocationData
+                title="Your Location"
+                locationData={this.state.locations.user}
+                setLocationData={this.setLocationData}
+                type={'user'}
+              />
+            </div>
+            <div className="column">
+              <Map
+                locations={this.state.locations}
+                url={this.state.url}
+              />
+            </div>
+            <div className="column">
+              <LocationData
+                title="Webpage Location"
+                url={this.state.url}
+                locationData={this.state.locations.web}
+                setLocationData={this.setLocationData}
+                type={'web'}
+                hideButton
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

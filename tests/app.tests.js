@@ -2,6 +2,7 @@
 /*  eslint import/no-unresolved: "off" */
 
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import App from 'src/app';
@@ -40,5 +41,10 @@ describe('<App />', () => {
     const url = 'myurl.com';
     shallowed.instance().handleUrlSubmit(url);
     expect(shallowed.state('url')).toEqual(url);
+  });
+
+  it('should render correctly', () => {
+    const rendered = renderer.create(<App />).toJSON();
+    expect(rendered).toMatchSnapshot();
   });
 });
