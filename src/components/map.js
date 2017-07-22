@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Script from 'react-load-script';
-import _ from 'lodash';
+
+import * as mapUtils from 'utils/map_utils';
 
 export default class Map extends Component {
 
@@ -30,66 +31,18 @@ export default class Map extends Component {
 
   updateMap() {
     const url = this.props.url;
+    const locations = this.props.locations;
 
-    const pins = _.reduce(this.props.locations, (acc, data, type) => {
-      if (!Object.keys(data).length) return acc;
-      const name = type === 'user' ? 'You' : url;
-      return acc.concat([[name, data.latitude, data.longitude]]);
-    }, []);
-
-    // The calculation with index is only possible with 2 values,
-    // if there is more this calc should change
-    const center = pins
-      .reduce(
-        (acc, data) => [acc[0] + data[1], acc[1] + data[2]],
-        [0, 0] // eslint-disable-line comma-dangle
-      )
-      .map((val) => {
-        const quantity = pins.length || 1;
-        return (val / quantity).toFixed(5);
-      });
+    const pins = mapUtils.getPins(locations, url);
+    const center = mapUtils.getMapCenter(pins);
+    const zoom = mapUtils.getMapZoom(pins);
 
     this.map.panTo(new google.maps.LatLng(center[0], center[1]));
-
-    let zoom = 6;
-    if (pins.length > 1) {
-      const distance = google.maps.geometry.spherical.computeDistanceBetween(
-        new google.maps.LatLng(pins[0][1], pins[0][2]),
-        new google.maps.LatLng(pins[1][1], pins[1][2]) // eslint-disable-line comma-dangle
-      );
-
-      const base = (1 / Math.pow(distance, 0.05)); // eslint-disable-line
-      // Use different formular depending on distance
-      zoom = distance > 3000000 ? base * 6 : base * 10;
-      zoom = parseInt(zoom, 10);
-    }
-
     this.map.setZoom(zoom);
 
-    // remove all markers
-    this.markers.map((marker) => {
-      marker.setMap(null);
-      return null;
-    });
-
-    // set new markers
-    this.markers = pins.map(place => (
-      new google.maps.Marker({
-        position: new google.maps.LatLng(place[1], place[2]),
-        map: this.map,
-      })
-    ));
-
-    // add new markers
-    this.markers.forEach((marker) => {
-      marker.setMap(this.map);
-      // TODO Not working, fix later
-      // google.maps.event.addListener(marker, 'click',
-      //   () => {
-      //     this.infowindow.setContent(pins[index][0]);
-      //     this.infowindow.open(this.map, index);
-      //   });
-    });
+    mapUtils.removeMarkers(this.markers);
+    this.markers = mapUtils.getNewMarkers(pins, this.map);
+    mapUtils.addMarkers(this.markers, this.map);
   }
 
   renderMap() {
@@ -113,7 +66,6 @@ export default class Map extends Component {
     );
   }
 }
-
 
 Map.propTypes = {
   locations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types

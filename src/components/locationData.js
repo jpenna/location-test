@@ -40,7 +40,8 @@ export default class LocationData extends Component {
         this.setState({ error: '' });
       })
       .catch((err) => {
-        console.log(err); // TODO remove console.log
+        // TODO remove console.log
+        console.log(err); // eslint-disable-line
         this.setState({ error: 'Sorry, couldn\'t fecth data.' });
       });
   }
