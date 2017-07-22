@@ -58,12 +58,13 @@ describe('<LocationData />', () => {
   });
 
   it('should return formatted list of location data', () => {
-    const data = { ip: 'me', null: '', how: 'what' };
+    const data = { ip: 'me', notshow: 'not', country_name: '', city: 'city' };
     const list = LocationData.renderLocationData(data);
     const listRendered = render(<div>{list}</div>);
-    expect(listRendered.find('div').first().children()).toHaveLength(2);
+    expect(listRendered.find('div').first().children()).toHaveLength(3);
     expect(listRendered.html().search('IP') > 0).toBeTruthy();
-    expect(listRendered.html().search('what') > 0).toBeTruthy();
+    expect(listRendered.html().search('city') > 0).toBeTruthy();
+    expect(listRendered.html().search('-') > 0).toBeTruthy();
   });
 
   it('should get location automatically if URL is defined', () => {

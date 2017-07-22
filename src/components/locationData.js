@@ -6,15 +6,21 @@ import axios from 'axios';
 import _ from 'lodash';
 
 export default class LocationData extends Component {
+
+
   static renderLocationData(locationData) {
+    const dataToShow = [
+      'ip', 'country_name', 'region_name', 'city', 'zip_code', 'latitude', 'longitude',
+    ];
+
     return _(locationData)
-      .omitBy(value => value === '')
+      .pickBy((value, key) => dataToShow.indexOf(key) >= 0)
       .map((value, key) => {
         const keyName = key === 'ip' ? 'IP' : key.replace('_', ' ');
         return (
           <div key={key} className="margin-bottom-half">
             <div className="title is-7 is-bold is-capitalized">{keyName}</div>
-            <div className="subtitle is-6">{value}</div>
+            <div className="subtitle is-6">{value || '-'}</div>
           </div>
         );
       })
@@ -93,7 +99,7 @@ export default class LocationData extends Component {
           className="section"
         >
           <div className="content has-text-centered">
-            Let&apos;s get some page info?
+            Let&apos;s get some page info?<br />Type in a URL above
           </div>
         </div>
         <div>
