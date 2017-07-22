@@ -30,8 +30,12 @@ export default class App extends Component {
     return (
       <div className="section">
         <div className="container">
-          <Title />
-          <InputUrl onSubmit={this.handleUrlSubmit} />
+          <div className="margin-bottom-2">
+            <Title />
+          </div>
+          <div className="margin-bottom-2">
+            <InputUrl onSubmit={this.handleUrlSubmit} />
+          </div>
           <div className="columns">
             <div className="column has-text-right">
               <LocationData

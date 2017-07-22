@@ -8,52 +8,60 @@ exports[`<App /> should render correctly 1`] = `
     className="container"
   >
     <div
-      className="has-text-centered"
+      className="margin-bottom-2"
     >
-      <h1
-        className="title is-1"
+      <div
+        className="has-text-centered"
       >
-        GeoLocation Test
-      </h1>
-      <h2
-        className="subtitle has-margin-bottom-10"
-      >
-        Find yourself
-      </h2>
+        <h1
+          className="title is-1"
+        >
+          GeoLocation Test
+        </h1>
+        <h2
+          className="subtitle has-margin-bottom-10"
+        >
+          Find yourself
+        </h2>
+      </div>
     </div>
     <div
-      className="content"
+      className="margin-bottom-2"
     >
-      <form
-        className="has-text-centered"
-        onSubmit={[Function]}
+      <div
+        className="content"
       >
-        <div
-          className="field has-addons has-addons-centered"
+        <form
+          className="has-text-centered"
+          onSubmit={[Function]}
         >
           <div
-            className="control"
+            className="field has-addons has-addons-centered"
           >
-            <input
-              className="input"
-              onChange={[Function]}
-              pattern="^[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#?&=]*)"
-              type="text"
-              value=""
-            />
-          </div>
-          <div
-            className="control"
-          >
-            <button
-              className="button is-primary"
-              type="submit"
+            <div
+              className="control"
             >
-              Go!
-            </button>
+              <input
+                className="input"
+                onChange={[Function]}
+                pattern="^[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#?&=]*)"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="control"
+            >
+              <button
+                className="button is-primary"
+                type="submit"
+              >
+                Go!
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
     <div
       className="columns"
