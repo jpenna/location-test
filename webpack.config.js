@@ -1,6 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const pkg = require('./package.json');
+const _ = require('lodash');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -9,6 +10,8 @@ const {
   GMAPS_KEY,
 } = process.env;
 
+const vendorPackages = _.filter(Object.keys(pkg.dependencies), name => !/bulma/.test(name));
+
 module.exports = {
   entry: {
     bundle: [
@@ -16,6 +19,7 @@ module.exports = {
       './index.js',
     ],
     vendor: Object.keys(pkg.dependencies),
+    vendor: vendorPackages,
   },
   output: {
     path: path.join(__dirname, '/dist'),
@@ -57,11 +61,11 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'vendor.min-[hash].js',
+      filename: 'vendor.[hash].js',
     }),
     new webpack.SourceMapDevToolPlugin({
       filename: '[name].[hash].js.map',
-      exclude: ['vendor.min-[hash].js'],
+      exclude: ['vendor.[hash].js'],
     }),
   ],
   devtool: 'source-map',
