@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+.text-bottom-align {
+  vertical-align: text-bottom;
+}
+
 .margin-bottom- {
   // sass-lint:disable no-important
   &half { margin-bottom: .5rem !important; }

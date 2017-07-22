@@ -61,7 +61,8 @@ export default class LocationData extends Component {
             >
               <button
                 type="button"
-                className="reset-button button is-small is-borderless is-danger inverted"
+                className="reset-button button is-small is-borderless
+                is-danger inverted text-bottom-align"
                 onClick={this.reset}
               >
                 <span className="icon">
@@ -71,7 +72,10 @@ export default class LocationData extends Component {
             </span>
           </div>
         </div>
-        <div hidden={this.props.hideButton || Object.keys(this.props.locationData).length}>
+        <div
+          hidden={this.props.hideButton || Object.keys(this.props.locationData).length}
+          className="section"
+        >
           <button
             className="get-location-button is-buttonless pointer"
             onClick={this.getLocation}
@@ -83,6 +87,14 @@ export default class LocationData extends Component {
               My Location
             </div>
           </button>
+        </div>
+        <div
+          hidden={this.props.type === 'user' || Object.keys(this.props.locationData).length}
+          className="section"
+        >
+          <div className="content has-text-centered">
+            Let&apos;s get some page info?
+          </div>
         </div>
         <div>
           {LocationData.renderLocationData(this.props.locationData)}
