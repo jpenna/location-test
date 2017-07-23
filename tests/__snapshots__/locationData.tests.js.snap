@@ -82,16 +82,20 @@ exports[`<LocationData /> should render correctly 1`] = `
   >
     <div
       className="content has-text-centered"
+      hidden=""
     >
       Let's get some page info?
       <br />
       Type in a URL above
     </div>
   </div>
-  <div>
-    <div>
-      
-    </div>
+  <div
+    className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+  >
+    
   </div>
+  <div
+    hidden=""
+  />
 </div>
 `;

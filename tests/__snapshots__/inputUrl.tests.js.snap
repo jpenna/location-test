@@ -22,6 +22,11 @@ exports[`<InputUrl /> should render correctly 1`] = `
           type="text"
           value=""
         />
+        <div
+          className="help is-danger show-invalid"
+        >
+          Type www.website.com or website.com
+        </div>
       </div>
       <div
         className="control"

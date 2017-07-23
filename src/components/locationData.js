@@ -50,7 +50,11 @@ export default class LocationData extends Component {
         this.props.setLocationData(this.props.type, data);
         this.setState({ error: '', infoDate: new Date().toLocaleString('pt-br') });
       })
-      .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
+      .catch(({ response }) => {
+        if (!response) return this.setState({ error: 'Check your internet connection.' });
+        if (response.status === 404) return this.setState({ error: `${this.props.url}\ndon't exist.` });
+        return this.setState({ error: 'Sorry, couldn\'t fecth data.\nPlease try again.' });
+      });
   }
 
   reset() {
@@ -74,10 +78,14 @@ export default class LocationData extends Component {
       <div>
         <div>
           <div className="container">
+
+            {/* Info balloon */}
             <div className={`notification is-primary info-balloon ${showBalloon ? '' : 'is-hidden'}`}>
               <button className="delete" onClick={this.hideInfoLabel} />
               This is your data according to freejeoip.net at {infoDate}
             </div>
+
+            {/* Title */}
             <button
               className={`js-showInfo is-buttonless ${infoDate ? 'pointer' : ''}`}
               disabled={!infoDate}
@@ -88,6 +96,8 @@ export default class LocationData extends Component {
                 <i className="fa fa-info-circle" />
               </span>
             </button>
+
+            {/* Reset button */}
             <span
               className="field"
               hidden={hideButton || !Object.keys(locationData).length}
@@ -103,8 +113,11 @@ export default class LocationData extends Component {
                 </span>
               </button>
             </span>
+
           </div>
         </div>
+
+        {/* My Location button */}
         <div
           hidden={hideButton || Object.keys(locationData).length}
           className="section"
@@ -121,17 +134,25 @@ export default class LocationData extends Component {
             </div>
           </button>
         </div>
+
+        {/* Message */}
         <div
           hidden={type === 'user' || Object.keys(locationData).length}
           className="section"
         >
-          <div className="content has-text-centered">
+          <div className="content has-text-centered" hidden={error}>
             Let&apos;s get some page info?<br />Type in a URL above
           </div>
         </div>
-        <div>
+
+        {/* Request error message */}
+        <div className="is-danger has-text-centered help title is-6 has-new-line is-marginless">
+          {error}
+        </div>
+
+        {/* Info */}
+        <div hidden={error}>
           {LocationData.renderLocationData(locationData)}
-          <div>{error}</div>
         </div>
       </div>
     );

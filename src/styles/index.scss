@@ -10,5 +10,17 @@ input::placeholder {
   color: $grey-lighter;
 }
 
+input:invalid {
+  @extend .is-danger;
+
+  & + .show-invalid {
+    display: block;
+  }
+}
+
+.show-invalid {
+  display: none;
+}
+
 @import './helpers';
 @import './style';

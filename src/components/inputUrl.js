@@ -36,6 +36,9 @@ export default class InputUrl extends Component {
                 pattern="^[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)"
                 onChange={this.handleChange}
               />
+              <div className="help is-danger show-invalid">
+                Type www.website.com or website.com
+              </div>
             </div>
             <div className="control">
               <button type="submit" className="button is-primary">Locate!</button>

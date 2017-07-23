@@ -1,6 +1,7 @@
 # GeoLocation Test
 
 #### Resources
+redux
 
 ### Initial Setup
 

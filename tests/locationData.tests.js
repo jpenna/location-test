@@ -88,7 +88,7 @@ describe('<LocationData />', () => {
       });
   });
 
-  it('getLocation() should set error on exception', () => {
+  it('getLocation() should set error on Network Error', () => {
     const urlError = 'error';
     axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
       .networkError();
@@ -98,7 +98,35 @@ describe('<LocationData />', () => {
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
-        expect(context.setState.mock.calls).toEqual([[{ error: 'Sorry, couldn\'t fecth data.' }]]);
+        expect(context.setState.mock.calls).toEqual([[{ error: 'Check your internet connection.' }]]);
+      });
+  });
+
+  it('getLocation() should set error on exception', () => {
+    const urlError = 'error';
+    axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
+      .reply(500);
+    const context = {
+      setState: jest.fn(),
+      props: { url: urlError, setLocationData: () => {} },
+    };
+    return LocationData.prototype.getLocation.call(context)
+      .then(() => {
+        expect(context.setState.mock.calls).toEqual([[{ error: 'Sorry, couldn\'t fecth data.\nPlease try again.' }]]);
+      });
+  });
+
+  it('getLocation() should set error on 404', () => {
+    const urlError = 'error';
+    axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
+      .reply(404);
+    const context = {
+      setState: jest.fn(),
+      props: { url: urlError, setLocationData: () => {} },
+    };
+    return LocationData.prototype.getLocation.call(context)
+      .then(() => {
+        expect(context.setState.mock.calls).toEqual([[{ error: `${urlError}\ndon't exist.` }]]);
       });
   });
 
