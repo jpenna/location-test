@@ -35,7 +35,7 @@
   cursor: pointer;
 }
 
-.has-new-line {
+.pre-formatted {
   white-space: pre;
   word-wrap: normal;
 }
@@ -51,8 +51,9 @@
   &2 { margin-bottom: 2rem !important; }
 }
 
-.is-danger {
-  &.inverted {
+// Invert button colors
+.inverted {
+  &.is-danger {
     background: transparent;
     color: $grey-light;
 

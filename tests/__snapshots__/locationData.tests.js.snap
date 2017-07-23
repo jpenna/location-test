@@ -111,7 +111,7 @@ exports[`<LocationData /> should render correctly 1`] = `
       </div>
     </div>
     <div
-      className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+      className="is-danger has-text-centered help title is-6 pre-formatted is-marginless"
     >
       
     </div>

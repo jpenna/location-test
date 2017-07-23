@@ -1,3 +1,24 @@
+// sass-lint:disable force-pseudo-nesting
+
+// ** Global changes **
+input::placeholder {
+  color: $grey-lighter;
+}
+
+input:invalid {
+  // sass-lint:disable placeholder-in-extend
+  @extend .is-danger;
+
+  & + .show-invalid {
+    display: block;
+  }
+}
+
+.show-invalid {
+  display: none;
+}
+
+// ** Custom classes **
 .map-frame {
   min-height: 400px;
 }
@@ -64,9 +85,7 @@
   .mobile-paddingless {
     padding: 0;
   }
-}
 
-@media screen and (max-width: 768px) {
   .root-columns {
     flex-direction: column;
   }

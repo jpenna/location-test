@@ -45,7 +45,7 @@ exports[`<App /> should render correctly 1`] = `
                 className="input"
                 onChange={[Function]}
                 pattern="^[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#?&=]*)"
-                placeholder="website.com"
+                placeholder="Enter a web address"
                 type="text"
                 value=""
               />
@@ -185,7 +185,7 @@ exports[`<App /> should render correctly 1`] = `
               </div>
             </div>
             <div
-              className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+              className="is-danger has-text-centered help title is-6 pre-formatted is-marginless"
             >
               
             </div>
@@ -319,7 +319,7 @@ exports[`<App /> should render correctly 1`] = `
               </div>
             </div>
             <div
-              className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+              className="is-danger has-text-centered help title is-6 pre-formatted is-marginless"
             >
               
             </div>

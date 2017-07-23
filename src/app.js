@@ -57,7 +57,7 @@ export default class App extends Component {
                 locationData={this.state.locations.web}
                 setLocationData={this.setLocationData}
                 type={'web'}
-                hideButton
+                hideButtons
               />
             </div>
           </div>

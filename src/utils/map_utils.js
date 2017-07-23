@@ -15,7 +15,7 @@ export function getMapZoom(pins) {
     );
 
     const base = (1 / Math.pow(distance, 0.05)); // eslint-disable-line
-    // Use different formula depending on distance
+    // Fomula is different depending on distance
     const multiplier = distance > 3000000 ? 6 : 10;
 
     return parseInt(base * multiplier, 10);
@@ -57,11 +57,5 @@ export function getNewMarkers(pins, map) {
 export function addMarkers(markers, map) {
   return markers.forEach((marker) => {
     marker.setMap(map);
-    // TODO Not working, fix later
-    // google.maps.event.addListener(marker, 'click',
-    //   () => {
-    //     infowindow.setContent(pins[index][0]);
-    //     infowindow.open(map, index);
-    //   });
   });
 }

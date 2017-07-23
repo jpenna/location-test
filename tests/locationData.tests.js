@@ -88,6 +88,21 @@ describe('<LocationData />', () => {
       });
   });
 
+  it('getLocation() should reset locationData on exception', () => {
+    const urlError = 'error';
+    axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
+      .reply(404);
+    const context = {
+      setState: jest.fn(),
+      props: { url: urlError, setLocationData: () => {} },
+      clearLocationData: jest.fn(),
+    };
+    return LocationData.prototype.getLocation.call(context)
+      .then(() => {
+        expect(context.clearLocationData).toHaveBeenCalledTimes(1);
+      });
+  });
+
   it('getLocation() should set error on Network Error', () => {
     const urlError = 'error';
     axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
@@ -95,6 +110,7 @@ describe('<LocationData />', () => {
     const context = {
       setState: jest.fn(),
       props: { url: urlError, setLocationData: () => {} },
+      clearLocationData: () => {},
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
@@ -109,6 +125,7 @@ describe('<LocationData />', () => {
     const context = {
       setState: jest.fn(),
       props: { url: urlError, setLocationData: () => {} },
+      clearLocationData: () => {},
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
@@ -123,10 +140,11 @@ describe('<LocationData />', () => {
     const context = {
       setState: jest.fn(),
       props: { url: urlError, setLocationData: () => {} },
+      clearLocationData: () => {},
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
-        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ error: `${urlError}\ndon't exist.` }));
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ error: `${urlError}\ndoesn't exist.` }));
       });
   });
 
@@ -150,6 +168,7 @@ describe('<LocationData />', () => {
     const context = {
       setState: jest.fn(),
       props: { url: urlError, setLocationData: () => {} },
+      clearLocationData: () => {},
     };
     return LocationData.prototype.getLocation.call(context)
     .then(() => {
@@ -166,12 +185,12 @@ describe('<LocationData />', () => {
   });
 
   it('should hide GET DATA button if props says so', () => {
-    const renderedHidden = render(<LocationData {...props} hideButton />);
+    const renderedHidden = render(<LocationData {...props} hideButtons />);
     expect(renderedHidden.find('button.get-location-button').parent().attr('hidden')).toEqual('hidden');
   });
 
   it('should hide RESET button if props says so', () => {
-    const renderedHidden = render(<LocationData {...props} hideButton />);
+    const renderedHidden = render(<LocationData {...props} hideButtons />);
     expect(renderedHidden.find('button.reset-button').parent().attr('hidden')).toEqual('hidden');
   });
 
@@ -210,7 +229,7 @@ describe('<LocationData />', () => {
   it('should have the right TypeProps', () => {
     const propTypes = {
       url: PropTypes.string,
-      hideButton: PropTypes.bool,
+      hideButtons: PropTypes.bool,
       title: PropTypes.string.isRequired,
       setLocationData: PropTypes.func.isRequired,
       locationData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -222,7 +241,7 @@ describe('<LocationData />', () => {
   it('should have the right DefaultProps', () => {
     const defaultProps = {
       url: '',
-      hideButton: false,
+      hideButtons: false,
       locationData: {},
     };
     expect(LocationData.defaultProps).toEqual(defaultProps);

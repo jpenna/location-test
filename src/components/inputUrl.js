@@ -32,7 +32,7 @@ export default class InputUrl extends Component {
                 className="input"
                 value={this.state.url}
                 type="text"
-                placeholder="website.com"
+                placeholder="Enter a web address"
                 pattern="^[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)"
                 onChange={this.handleChange}
               />

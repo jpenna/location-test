@@ -18,7 +18,7 @@ exports[`<InputUrl /> should render correctly 1`] = `
           className="input"
           onChange={[Function]}
           pattern="^[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#?&=]*)"
-          placeholder="website.com"
+          placeholder="Enter a web address"
           type="text"
           value=""
         />

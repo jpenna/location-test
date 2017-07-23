@@ -32,6 +32,7 @@ export default class Map extends Component {
   updateMap() { // eslint-disable-line consistent-return
     const locations = this.props.locations;
 
+    // No locationData? Just remove all markers
     if (!Object.keys(locations.user).length && !Object.keys(locations.web).length) {
       return mapUtils.removeMarkers(this.markers);
     }

@@ -36,7 +36,7 @@ export default class LocationData extends Component {
     };
 
     this.getLocation = this.getLocation.bind(this);
-    this.reset = this.reset.bind(this);
+    this.clearLocationData = this.clearLocationData.bind(this);
     this.toggleInfoLabel = this.toggleInfoLabel.bind(this);
     this.hideInfoLabel = this.hideInfoLabel.bind(this);
   }
@@ -53,18 +53,19 @@ export default class LocationData extends Component {
         this.setState({ error: '', infoDate: new Date().toLocaleString('pt-br'), fetching: false });
       })
       .catch(({ response }) => {
-        this.props.setLocationData(this.props.type, {});
+        // Reset locationData
+        this.clearLocationData();
 
         let error;
         if (!response) error = 'Check your internet connection.';
-        else if (response.status === 404) error = `${this.props.url}\ndon't exist.`;
+        else if (response.status === 404) error = `${this.props.url}\ndoesn't exist.`;
         else error = 'Sorry, couldn\'t fecth data.\nPlease try again.';
 
         return this.setState({ error, fetching: false });
       });
   }
 
-  reset() {
+  clearLocationData() {
     this.props.setLocationData(this.props.type, {});
     this.setState({ infoDate: '' });
   }
@@ -78,7 +79,7 @@ export default class LocationData extends Component {
   }
 
   render() {
-    const { locationData, hideButton, type, title } = this.props;
+    const { locationData, hideButtons, type, title } = this.props;
     const { infoDate, error, showBalloon } = this.state;
 
     return (
@@ -107,13 +108,13 @@ export default class LocationData extends Component {
             {/* Reset button */}
             <span
               className="field"
-              hidden={hideButton || !Object.keys(locationData).length}
+              hidden={hideButtons || !Object.keys(locationData).length}
             >
               <button
                 type="button"
                 className="reset-button button is-small is-borderless
                 is-danger inverted text-bottom-align"
-                onClick={this.reset}
+                onClick={this.clearLocationData}
               >
                 <span className="icon">
                   <i className="fa fa-trash" />
@@ -133,11 +134,12 @@ export default class LocationData extends Component {
           </div>
         </div>
 
-        {/* Regular cotent */}
+        {/* Column content */}
         <div hidden={this.state.fetching}>
-          {/* My Location button */}
+
+          {/* My Location button (User Column) */}
           <div
-            hidden={hideButton || Object.keys(locationData).length}
+            hidden={hideButtons || Object.keys(locationData).length}
             className="section mobile-paddingless"
           >
             <button
@@ -153,7 +155,7 @@ export default class LocationData extends Component {
             </button>
           </div>
 
-          {/* Message */}
+          {/* Message (Web Column) */}
           <div
             hidden={type === 'user' || Object.keys(locationData).length}
             className="section mobile-paddingless"
@@ -164,7 +166,7 @@ export default class LocationData extends Component {
           </div>
 
           {/* Request error message */}
-          <div className="is-danger has-text-centered help title is-6 has-new-line is-marginless">
+          <div className="is-danger has-text-centered help title is-6 pre-formatted is-marginless">
             {error}
           </div>
 
@@ -181,7 +183,7 @@ export default class LocationData extends Component {
 
 LocationData.propTypes = {
   url: PropTypes.string,
-  hideButton: PropTypes.bool,
+  hideButtons: PropTypes.bool,
   title: PropTypes.string.isRequired,
   setLocationData: PropTypes.func.isRequired,
   locationData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -190,6 +192,6 @@ LocationData.propTypes = {
 
 LocationData.defaultProps = {
   url: '',
-  hideButton: false,
+  hideButtons: false,
   locationData: {},
 };
