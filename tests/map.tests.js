@@ -15,10 +15,12 @@ describe('<Map />', () => {
   let rendered;
   let context;
   let mapMock;
+  let locations;
   let infoWindowMock;
 
   beforeAll(() => {
-    rendered = render(<Map locations={{}} url="" />);
+    locations = { web: { name: 'ops' }, user: {} };
+    rendered = render(<Map locations={locations} url="" />);
     mapMock = jest.fn();
     infoWindowMock = jest.fn();
 
@@ -38,7 +40,7 @@ describe('<Map />', () => {
 
   beforeEach(() => {
     context = {
-      props: { url: 'url', locations: { loc: 'loc' } },
+      props: { url: 'url', locations },
       map: { panTo: jest.fn(), setZoom: jest.fn() },
       markers: 'markers',
     };
@@ -55,7 +57,7 @@ describe('<Map />', () => {
 
   it('should call getScript', () => {
     const spy = jest.spyOn(Map.prototype, 'getScript');
-    shallow(<Map locations={{}} url="" />);
+    shallow(<Map locations={locations} url="" />);
     expect(spy).toHaveBeenCalledTimes(1);
     spy.mockRestore();
   });
@@ -77,7 +79,7 @@ describe('<Map />', () => {
 
   it('should call updateMap() on update', () => {
     const spy = jest.spyOn(Map.prototype, 'updateMap').mockImplementation(() => {});
-    const remounted = mount(<Map locations={{}} url="" />);
+    const remounted = mount(<Map locations={locations} url="" />);
     remounted.update();
     expect(spy).toHaveBeenCalledTimes(1);
     spy.mockRestore();
@@ -96,6 +98,18 @@ describe('<Map />', () => {
       },
     ]]);
     expect(infoWindowMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('updateMap() should call removeMarkers() and leave method', () => {
+    const missing = Object.assign(context, {
+      props: {
+        url: 'url',
+        locations: { user: {}, web: {} },
+      },
+    });
+    Map.prototype.updateMap.call(missing);
+    expect(mapUtils.removeMarkers.mock.calls).toEqual([['markers']]);
+    expect(mapUtils.getPins).toHaveBeenCalledTimes(0);
   });
 
   it('updateMap() should call getPins(), getMapCenter() and getMapZoom()', () => {
@@ -119,9 +133,7 @@ describe('<Map />', () => {
   });
 
   it('should have the correct PropTypes', () => {
-    const propTypes = {
-      locations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-    };
-    expect(Map.propTypes).toEqual(propTypes);
+    expect(Map.propTypes.locations).toBeTruthy();
+    expect(Object.keys(Map.propTypes).length).toEqual(1);
   });
 });

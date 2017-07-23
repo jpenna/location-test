@@ -29,8 +29,12 @@ export default class Map extends Component {
     );
   }
 
-  updateMap() {
+  updateMap() { // eslint-disable-line consistent-return
     const locations = this.props.locations;
+
+    if (!Object.keys(locations.user).length && !Object.keys(locations.web).length) {
+      return mapUtils.removeMarkers(this.markers);
+    }
 
     const pins = mapUtils.getPins(locations);
     const center = mapUtils.getMapCenter(pins);
@@ -70,5 +74,8 @@ export default class Map extends Component {
 }
 
 Map.propTypes = {
-  locations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  locations: PropTypes.shape({
+    user: PropTypes.object.isRequired,
+    web: PropTypes.object.isRequired,
+  }).isRequired,
 };

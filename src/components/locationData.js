@@ -51,6 +51,7 @@ export default class LocationData extends Component {
         this.setState({ error: '', infoDate: new Date().toLocaleString('pt-br') });
       })
       .catch(({ response }) => {
+        this.props.setLocationData(this.props.type, {});
         if (!response) return this.setState({ error: 'Check your internet connection.' });
         if (response.status === 404) return this.setState({ error: `${this.props.url}\ndon't exist.` });
         return this.setState({ error: 'Sorry, couldn\'t fecth data.\nPlease try again.' });
