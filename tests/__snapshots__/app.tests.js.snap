@@ -70,15 +70,15 @@ exports[`<App /> should render correctly 1`] = `
       </div>
     </div>
     <div
-      className="columns"
+      className="is-flex root-columns"
     >
       <div
-        className="column has-text-right"
+        className="column is-4 user-column"
       >
         <div>
           <div>
             <div
-              className="container"
+              className="is-relative"
             >
               <div
                 className="notification is-primary info-balloon is-hidden"
@@ -129,7 +129,7 @@ exports[`<App /> should render correctly 1`] = `
             </div>
           </div>
           <div
-            className="section"
+            className="section mobile-paddingless"
             hidden={0}
           >
             <button
@@ -151,7 +151,7 @@ exports[`<App /> should render correctly 1`] = `
             </button>
           </div>
           <div
-            className="section"
+            className="section mobile-paddingless"
             hidden={true}
           >
             <div
@@ -174,7 +174,7 @@ exports[`<App /> should render correctly 1`] = `
         </div>
       </div>
       <div
-        className="column"
+        className="column is-4 map-column"
       >
         <div>
           <div
@@ -185,12 +185,12 @@ exports[`<App /> should render correctly 1`] = `
         </div>
       </div>
       <div
-        className="column"
+        className="column is-4 web-column"
       >
         <div>
           <div>
             <div
-              className="container"
+              className="is-relative"
             >
               <div
                 className="notification is-primary info-balloon is-hidden"
@@ -241,7 +241,7 @@ exports[`<App /> should render correctly 1`] = `
             </div>
           </div>
           <div
-            className="section"
+            className="section mobile-paddingless"
             hidden={true}
           >
             <button
@@ -263,7 +263,7 @@ exports[`<App /> should render correctly 1`] = `
             </button>
           </div>
           <div
-            className="section"
+            className="section mobile-paddingless"
             hidden={0}
           >
             <div

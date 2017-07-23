@@ -77,7 +77,7 @@ export default class LocationData extends Component {
     return (
       <div>
         <div>
-          <div className="container">
+          <div className="is-relative">
 
             {/* Info balloon */}
             <div className={`notification is-primary info-balloon ${showBalloon ? '' : 'is-hidden'}`}>
@@ -120,7 +120,7 @@ export default class LocationData extends Component {
         {/* My Location button */}
         <div
           hidden={hideButton || Object.keys(locationData).length}
-          className="section"
+          className="section mobile-paddingless"
         >
           <button
             className="get-location-button is-buttonless pointer"
@@ -138,7 +138,7 @@ export default class LocationData extends Component {
         {/* Message */}
         <div
           hidden={type === 'user' || Object.keys(locationData).length}
-          className="section"
+          className="section mobile-paddingless"
         >
           <div className="content has-text-centered" hidden={error}>
             Let&apos;s get some page info?<br />Type in a URL above

@@ -4,7 +4,7 @@ exports[`<LocationData /> should render correctly 1`] = `
 <div>
   <div>
     <div
-      className="container"
+      className="is-relative"
     >
       <div
         className="notification is-primary info-balloon is-hidden"
@@ -55,7 +55,7 @@ exports[`<LocationData /> should render correctly 1`] = `
     </div>
   </div>
   <div
-    className="section"
+    className="section mobile-paddingless"
     hidden={1}
   >
     <button
@@ -77,7 +77,7 @@ exports[`<LocationData /> should render correctly 1`] = `
     </button>
   </div>
   <div
-    className="section"
+    className="section mobile-paddingless"
     hidden={true}
   >
     <div

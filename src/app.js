@@ -36,8 +36,8 @@ export default class App extends Component {
           <div className="margin-bottom-2">
             <InputUrl onSubmit={this.handleUrlSubmit} />
           </div>
-          <div className="columns">
-            <div className="column has-text-right">
+          <div className="is-flex root-columns">
+            <div className="column is-4 user-column">
               <LocationData
                 title="Your Location"
                 locationData={this.state.locations.user}
@@ -45,13 +45,13 @@ export default class App extends Component {
                 type={'user'}
               />
             </div>
-            <div className="column">
+            <div className="column is-4 map-column">
               <Map
                 locations={this.state.locations}
                 url={this.state.url}
               />
             </div>
-            <div className="column">
+            <div className="column is-4 web-column">
               <LocationData
                 title="Webpage Location"
                 url={this.state.url}
