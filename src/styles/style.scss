@@ -19,3 +19,35 @@
     }
   }
 }
+
+.info-sign {
+  vertical-align: super;
+
+  // sass-lint:disable force-element-nesting
+  i.fa {
+    color: $blue;
+    font-size: .9rem;
+  }
+}
+
+.info-balloon {
+  position: absolute;
+  top: 2.8rem;
+  right: 0;
+  left: 0;
+  margin: auto;
+
+  z-index: 10;
+  max-width: 300px;
+
+  &::before {
+    content: '';
+    border: solid 15px $primary;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+  }
+}

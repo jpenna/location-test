@@ -6,8 +6,6 @@ import axios from 'axios';
 import _ from 'lodash';
 
 export default class LocationData extends Component {
-
-
   static renderLocationData(locationData) {
     const dataToShow = [
       'ip', 'country_name', 'region_name', 'city', 'zip_code', 'latitude', 'longitude',
@@ -32,10 +30,14 @@ export default class LocationData extends Component {
 
     this.state = {
       error: '',
+      infoDate: '',
+      showBalloon: false,
     };
 
     this.getLocation = this.getLocation.bind(this);
     this.reset = this.reset.bind(this);
+    this.toggleInfoLabel = this.toggleInfoLabel.bind(this);
+    this.hideInfoLabel = this.hideInfoLabel.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -46,24 +48,49 @@ export default class LocationData extends Component {
     return axios.get(`http://freegeoip.net/json/${this.props.url}`)
       .then(({ data }) => {
         this.props.setLocationData(this.props.type, data);
-        this.setState({ error: '' });
+        this.setState({ error: '', infoDate: new Date().toLocaleString('pt-br') });
       })
       .catch(() => this.setState({ error: 'Sorry, couldn\'t fecth data.' }));
   }
 
   reset() {
     this.props.setLocationData(this.props.type, {});
+    this.setState({ infoDate: '' });
+  }
+
+  toggleInfoLabel() {
+    this.setState({ showBalloon: !this.state.showBalloon });
+  }
+
+  hideInfoLabel() {
+    this.setState({ showBalloon: false });
   }
 
   render() {
+    const { locationData, hideButton, type, title } = this.props;
+    const { infoDate, error, showBalloon } = this.state;
+
     return (
       <div>
         <div>
-          <div>
-            <h3 className="title is-5 is-inline-block">{this.props.title}</h3>
+          <div className="container">
+            <div className={`notification is-primary info-balloon ${showBalloon ? '' : 'is-hidden'}`}>
+              <button className="delete" onClick={this.hideInfoLabel} />
+              This is your data according to freejeoip.net at {infoDate}
+            </div>
+            <button
+              className={`js-showInfo is-buttonless ${infoDate ? 'pointer' : ''}`}
+              disabled={!infoDate}
+              onClick={this.toggleInfoLabel}
+            >
+              <h3 className="title is-5 is-inline-block">{title}</h3>
+              <span className={`icon info-sign ${infoDate ? '' : 'is-hidden'}`}>
+                <i className="fa fa-info-circle" />
+              </span>
+            </button>
             <span
               className="field"
-              hidden={this.props.hideButton || !Object.keys(this.props.locationData).length}
+              hidden={hideButton || !Object.keys(locationData).length}
             >
               <button
                 type="button"
@@ -79,7 +106,7 @@ export default class LocationData extends Component {
           </div>
         </div>
         <div
-          hidden={this.props.hideButton || Object.keys(this.props.locationData).length}
+          hidden={hideButton || Object.keys(locationData).length}
           className="section"
         >
           <button
@@ -95,7 +122,7 @@ export default class LocationData extends Component {
           </button>
         </div>
         <div
-          hidden={this.props.type === 'user' || Object.keys(this.props.locationData).length}
+          hidden={type === 'user' || Object.keys(locationData).length}
           className="section"
         >
           <div className="content has-text-centered">
@@ -103,8 +130,8 @@ export default class LocationData extends Component {
           </div>
         </div>
         <div>
-          {LocationData.renderLocationData(this.props.locationData)}
-          <div>{this.state.error}</div>
+          {LocationData.renderLocationData(locationData)}
+          <div>{error}</div>
         </div>
       </div>
     );

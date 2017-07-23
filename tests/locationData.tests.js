@@ -84,7 +84,7 @@ describe('<LocationData />', () => {
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
         expect(setLocationData.mock.calls).toEqual([[context.props.type, axiosResponse]]);
-        expect(context.setState.mock.calls).toEqual([[{ error: '' }]]);
+        expect(context.setState.mock.calls).toEqual([[{ error: '', infoDate: expect.any(String) }]]);
       });
   });
 
@@ -116,6 +116,38 @@ describe('<LocationData />', () => {
   it('should hide RESET button if props says so', () => {
     const renderedHidden = render(<LocationData {...props} hideButton />);
     expect(renderedHidden.find('button.reset-button').parent().attr('hidden')).toEqual('hidden');
+  });
+
+  it('should hide info-sign if there is no locationData', () => {
+    expect(rendered.find('.info-sign').hasClass('is-hidden')).toBeTruthy();
+  });
+
+  it('should not show info-balloon on Click if there is no locationData', () => {
+    expect(rendered.find('.js-showInfo').attr('disabled')).toBeTruthy();
+  });
+
+  it('should show info-balloon on Click title', () => {
+    const shallowed = shallow(<LocationData {...props} />);
+    shallowed.setState({ infoDate: '23/12' });
+    shallowed.find('.js-showInfo').simulate('click');
+    expect(shallowed.render().find('.js-showInfo').attr('disabled')).toBeFalsy();
+    expect(shallowed.state('showBalloon')).toBeTruthy();
+  });
+
+  it('should hide info-balloon on Click title again', () => {
+    const shallowed = shallow(<LocationData {...props} />);
+    shallowed.find('.js-showInfo').simulate('click');
+    expect(shallowed.find('.info-balloon').hasClass('is-hidden')).toBeFalsy();
+    shallowed.find('.js-showInfo').simulate('click');
+    expect(shallowed.find('.info-balloon').hasClass('is-hidden')).toBeTruthy();
+  });
+
+  it('should hide info-balloon on Click close button in balloon', () => {
+    const shallowed = shallow(<LocationData {...props} />);
+    shallowed.setState({ showBalloon: true });
+    expect(shallowed.find('.info-balloon').hasClass('is-hidden')).toBeFalsy();
+    shallowed.find('.info-balloon').find('button').simulate('click');
+    expect(shallowed.find('.info-balloon').hasClass('is-hidden')).toBeTruthy();
   });
 
   it('should have the right TypeProps', () => {
