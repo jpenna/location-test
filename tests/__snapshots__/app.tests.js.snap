@@ -130,47 +130,69 @@ exports[`<App /> should render correctly 1`] = `
           </div>
           <div
             className="section mobile-paddingless"
-            hidden={0}
-          >
-            <button
-              className="get-location-button is-buttonless pointer"
-              onClick={[Function]}
-            >
-              <div
-                className="icon button is-info is-rounded margin-bottom-half"
-              >
-                <i
-                  className="fa fa-map-marker"
-                />
-              </div>
-              <div
-                className="title is-6"
-              >
-                My Location
-              </div>
-            </button>
-          </div>
-          <div
-            className="section mobile-paddingless"
             hidden={true}
           >
             <div
-              className="content has-text-centered"
-              hidden=""
+              className="spinner"
             >
-              Let's get some page info?
-              <br />
-              Type in a URL above
+              <div
+                className="bounce1"
+              />
+              <div
+                className="bounce2"
+              />
+              <div
+                className="bounce3"
+              />
             </div>
           </div>
           <div
-            className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+            hidden={false}
           >
-            
+            <div
+              className="section mobile-paddingless"
+              hidden={0}
+            >
+              <button
+                className="get-location-button is-buttonless pointer"
+                onClick={[Function]}
+              >
+                <div
+                  className="icon button is-info is-rounded margin-bottom-half"
+                >
+                  <i
+                    className="fa fa-map-marker"
+                  />
+                </div>
+                <div
+                  className="title is-6"
+                >
+                  My Location
+                </div>
+              </button>
+            </div>
+            <div
+              className="section mobile-paddingless"
+              hidden={true}
+            >
+              <div
+                className="content has-text-centered"
+                hidden=""
+              >
+                Let's get some page info?
+                <br />
+                Type in a URL above
+              </div>
+            </div>
+            <div
+              className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+            >
+              
+            </div>
+            <div
+              hidden=""
+            />
           </div>
-          <div
-            hidden=""
-          />
         </div>
       </div>
       <div
@@ -244,45 +266,67 @@ exports[`<App /> should render correctly 1`] = `
             className="section mobile-paddingless"
             hidden={true}
           >
-            <button
-              className="get-location-button is-buttonless pointer"
-              onClick={[Function]}
-            >
-              <div
-                className="icon button is-info is-rounded margin-bottom-half"
-              >
-                <i
-                  className="fa fa-map-marker"
-                />
-              </div>
-              <div
-                className="title is-6"
-              >
-                My Location
-              </div>
-            </button>
-          </div>
-          <div
-            className="section mobile-paddingless"
-            hidden={0}
-          >
             <div
-              className="content has-text-centered"
-              hidden=""
+              className="spinner"
             >
-              Let's get some page info?
-              <br />
-              Type in a URL above
+              <div
+                className="bounce1"
+              />
+              <div
+                className="bounce2"
+              />
+              <div
+                className="bounce3"
+              />
             </div>
           </div>
           <div
-            className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+            hidden={false}
           >
-            
+            <div
+              className="section mobile-paddingless"
+              hidden={true}
+            >
+              <button
+                className="get-location-button is-buttonless pointer"
+                onClick={[Function]}
+              >
+                <div
+                  className="icon button is-info is-rounded margin-bottom-half"
+                >
+                  <i
+                    className="fa fa-map-marker"
+                  />
+                </div>
+                <div
+                  className="title is-6"
+                >
+                  My Location
+                </div>
+              </button>
+            </div>
+            <div
+              className="section mobile-paddingless"
+              hidden={0}
+            >
+              <div
+                className="content has-text-centered"
+                hidden=""
+              >
+                Let's get some page info?
+                <br />
+                Type in a URL above
+              </div>
+            </div>
+            <div
+              className="is-danger has-text-centered help title is-6 has-new-line is-marginless"
+            >
+              
+            </div>
+            <div
+              hidden=""
+            />
           </div>
-          <div
-            hidden=""
-          />
         </div>
       </div>
     </div>

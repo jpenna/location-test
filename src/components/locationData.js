@@ -32,6 +32,7 @@ export default class LocationData extends Component {
       error: '',
       infoDate: '',
       showBalloon: false,
+      fetching: false,
     };
 
     this.getLocation = this.getLocation.bind(this);
@@ -45,16 +46,21 @@ export default class LocationData extends Component {
   }
 
   getLocation() {
+    this.setState({ fetching: true });
     return axios.get(`http://freegeoip.net/json/${this.props.url}`)
       .then(({ data }) => {
         this.props.setLocationData(this.props.type, data);
-        this.setState({ error: '', infoDate: new Date().toLocaleString('pt-br') });
+        this.setState({ error: '', infoDate: new Date().toLocaleString('pt-br'), fetching: false });
       })
       .catch(({ response }) => {
         this.props.setLocationData(this.props.type, {});
-        if (!response) return this.setState({ error: 'Check your internet connection.' });
-        if (response.status === 404) return this.setState({ error: `${this.props.url}\ndon't exist.` });
-        return this.setState({ error: 'Sorry, couldn\'t fecth data.\nPlease try again.' });
+
+        let error;
+        if (!response) error = 'Check your internet connection.';
+        else if (response.status === 404) error = `${this.props.url}\ndon't exist.`;
+        else error = 'Sorry, couldn\'t fecth data.\nPlease try again.';
+
+        return this.setState({ error, fetching: false });
       });
   }
 
@@ -118,43 +124,56 @@ export default class LocationData extends Component {
           </div>
         </div>
 
-        {/* My Location button */}
-        <div
-          hidden={hideButton || Object.keys(locationData).length}
-          className="section mobile-paddingless"
-        >
-          <button
-            className="get-location-button is-buttonless pointer"
-            onClick={this.getLocation}
-          >
-            <div className="icon button is-info is-rounded margin-bottom-half">
-              <i className="fa fa-map-marker" />
-            </div>
-            <div className="title is-6">
-              My Location
-            </div>
-          </button>
-        </div>
-
-        {/* Message */}
-        <div
-          hidden={type === 'user' || Object.keys(locationData).length}
-          className="section mobile-paddingless"
-        >
-          <div className="content has-text-centered" hidden={error}>
-            Let&apos;s get some page info?<br />Type in a URL above
+        {/* Spinner */}
+        <div className="section mobile-paddingless" hidden={!this.state.fetching}>
+          <div className="spinner">
+            <div className="bounce1" />
+            <div className="bounce2" />
+            <div className="bounce3" />
           </div>
         </div>
 
-        {/* Request error message */}
-        <div className="is-danger has-text-centered help title is-6 has-new-line is-marginless">
-          {error}
+        {/* Regular cotent */}
+        <div hidden={this.state.fetching}>
+          {/* My Location button */}
+          <div
+            hidden={hideButton || Object.keys(locationData).length}
+            className="section mobile-paddingless"
+          >
+            <button
+              className="get-location-button is-buttonless pointer"
+              onClick={this.getLocation}
+            >
+              <div className="icon button is-info is-rounded margin-bottom-half">
+                <i className="fa fa-map-marker" />
+              </div>
+              <div className="title is-6">
+                My Location
+              </div>
+            </button>
+          </div>
+
+          {/* Message */}
+          <div
+            hidden={type === 'user' || Object.keys(locationData).length}
+            className="section mobile-paddingless"
+          >
+            <div className="content has-text-centered" hidden={error}>
+              Let&apos;s get some page info?<br />Type in a URL above
+            </div>
+          </div>
+
+          {/* Request error message */}
+          <div className="is-danger has-text-centered help title is-6 has-new-line is-marginless">
+            {error}
+          </div>
+
+          {/* Info */}
+          <div hidden={error}>
+            {LocationData.renderLocationData(locationData)}
+          </div>
         </div>
 
-        {/* Info */}
-        <div hidden={error}>
-          {LocationData.renderLocationData(locationData)}
-        </div>
       </div>
     );
   }

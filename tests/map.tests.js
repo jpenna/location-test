@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { render, shallow, mount } from 'enzyme';
-import PropTypes from 'prop-types';
 import * as mapUtils from 'src/utils/map_utils';
 
 import Map from 'src/components/map';

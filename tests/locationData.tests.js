@@ -84,7 +84,7 @@ describe('<LocationData />', () => {
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
         expect(setLocationData.mock.calls).toEqual([[context.props.type, axiosResponse]]);
-        expect(context.setState.mock.calls).toEqual([[{ error: '', infoDate: expect.any(String) }]]);
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ error: '', infoDate: expect.any(String) }));
       });
   });
 
@@ -98,7 +98,7 @@ describe('<LocationData />', () => {
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
-        expect(context.setState.mock.calls).toEqual([[{ error: 'Check your internet connection.' }]]);
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ error: 'Check your internet connection.' }));
       });
   });
 
@@ -112,7 +112,7 @@ describe('<LocationData />', () => {
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
-        expect(context.setState.mock.calls).toEqual([[{ error: 'Sorry, couldn\'t fecth data.\nPlease try again.' }]]);
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ error: 'Sorry, couldn\'t fecth data.\nPlease try again.' }));
       });
   });
 
@@ -126,8 +126,37 @@ describe('<LocationData />', () => {
     };
     return LocationData.prototype.getLocation.call(context)
       .then(() => {
-        expect(context.setState.mock.calls).toEqual([[{ error: `${urlError}\ndon't exist.` }]]);
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ error: `${urlError}\ndon't exist.` }));
       });
+  });
+
+  it('getLocation() should setState fetching to TRUE on start and FALSE on RESOLVE', () => {
+    const context = {
+      setState: jest.fn(),
+      props: { url, setLocationData: () => {} },
+    };
+    return LocationData.prototype.getLocation.call(context)
+      .then(() => {
+        expect(context.setState).toHaveBeenCalledTimes(2);
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ fetching: true }));
+        expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ fetching: false }));
+      });
+  });
+
+  it('getLocation() should setState fetching to TRUE on start and FALSE on REJECT', () => {
+    const urlError = 'error';
+    axiosMock.onGet(`http://freegeoip.net/json/${urlError}`)
+      .reply(404);
+    const context = {
+      setState: jest.fn(),
+      props: { url: urlError, setLocationData: () => {} },
+    };
+    return LocationData.prototype.getLocation.call(context)
+    .then(() => {
+      expect(context.setState).toHaveBeenCalledTimes(2);
+      expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ fetching: true }));
+      expect(context.setState).toHaveBeenCalledWith(expect.objectContaining({ fetching: false }));
+    });
   });
 
   it('should reset location data when RESET button is clicked', () => {

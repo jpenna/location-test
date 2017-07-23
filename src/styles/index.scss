@@ -11,6 +11,7 @@ input::placeholder {
 }
 
 input:invalid {
+  // sass-lint:disable placeholder-in-extend
   @extend .is-danger;
 
   & + .show-invalid {
@@ -24,3 +25,4 @@ input:invalid {
 
 @import './helpers';
 @import './style';
+@import './spinner';

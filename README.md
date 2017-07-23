@@ -80,6 +80,7 @@ None
 - [ ] Customized pins for user and for webpage on the map
 - [ ] Add icons for *Your Location* nad *Website Location* next to <LocationData /> titles to ease understanding of the page
 - [ ] Hide info balloon (which explains the request data) with timeout on mouseLeave
+- [ ] Add spinner while page is loading
 
 ----
 
