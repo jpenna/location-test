@@ -37,7 +37,7 @@ export default class InputUrl extends Component {
                 onChange={this.handleChange}
               />
               <div className="help is-danger show-invalid">
-                Type www.website.com or website.com
+                Format: www.google.com / google.com
               </div>
             </div>
             <div className="control">
