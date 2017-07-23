@@ -1,18 +1,17 @@
 import _ from 'lodash';
 
-export function getPins(locations, url) {
-  return _.reduce(locations, (acc, data, type) => {
+export function getPins(locations) {
+  return _.reduce(locations, (acc, data) => {
     if (!Object.keys(data).length) return acc;
-    const name = type === 'user' ? locations.user.city : url;
-    return acc.concat([[name, data.latitude, data.longitude]]);
+    return acc.concat([[data.latitude, data.longitude]]);
   }, []);
 }
 
 export function getMapZoom(pins) {
   if (pins.length > 1) {
     const distance = google.maps.geometry.spherical.computeDistanceBetween(
-      new google.maps.LatLng(pins[0][1], pins[0][2]),
-      new google.maps.LatLng(pins[1][1], pins[1][2]) // eslint-disable-line comma-dangle
+      new google.maps.LatLng(pins[0][0], pins[0][1]),
+      new google.maps.LatLng(pins[1][0], pins[1][1]) // eslint-disable-line comma-dangle
     );
 
     const base = (1 / Math.pow(distance, 0.05)); // eslint-disable-line
@@ -28,8 +27,8 @@ export function getMapCenter(pins) {
   return pins
     .reduce(
       (acc, data) => [
-        acc[0] + data[1] || acc[0],
-        acc[1] + data[2] || acc[1],
+        acc[0] + data[0] || acc[0],
+        acc[1] + data[1] || acc[1],
       ],
       [0, 0] // eslint-disable-line comma-dangle
     )
@@ -49,7 +48,7 @@ export function removeMarkers(markers) {
 export function getNewMarkers(pins, map) {
   return pins.map(place => (
     new google.maps.Marker({
-      position: new google.maps.LatLng(place[1], place[2]),
+      position: new google.maps.LatLng(place[0], place[1]),
       map,
     })
   ));

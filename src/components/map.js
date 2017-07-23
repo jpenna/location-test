@@ -30,10 +30,9 @@ export default class Map extends Component {
   }
 
   updateMap() {
-    const url = this.props.url;
     const locations = this.props.locations;
 
-    const pins = mapUtils.getPins(locations, url);
+    const pins = mapUtils.getPins(locations);
     const center = mapUtils.getMapCenter(pins);
     const zoom = mapUtils.getMapZoom(pins);
 
@@ -72,5 +71,4 @@ export default class Map extends Component {
 
 Map.propTypes = {
   locations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  url: PropTypes.string.isRequired,
 };

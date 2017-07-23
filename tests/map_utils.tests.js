@@ -17,12 +17,10 @@ describe('Map Utils', () => {
 
     locations = {
       user: {
-        city: 'Belo Horizonte',
         latitude: 1123,
         longitude: 2124,
       },
       web: {
-        city: 'Mountain View',
         latitude: 31234,
         longitude: 21354,
       },
@@ -31,8 +29,8 @@ describe('Map Utils', () => {
     const user = locations.user;
     const web = locations.web;
     pins = [
-      [user.city, user.latitude, user.longitude],
-      [url, web.latitude, web.longitude],
+      [user.latitude, user.longitude],
+      [web.latitude, web.longitude],
     ];
 
     global.google = {
@@ -81,15 +79,15 @@ describe('Map Utils', () => {
 
   it('getMapCenter(): should return [lat, lng] as mean, when there are 2 positions', () => {
     const expected = [
+      ((pins[0][0] + pins[1][0]) / 2).toFixed(5),
       ((pins[0][1] + pins[1][1]) / 2).toFixed(5),
-      ((pins[0][2] + pins[1][2]) / 2).toFixed(5),
     ];
     const center = mapUtils.getMapCenter(pins);
     expect(center).toEqual(expected);
   });
 
   it('getMapCenter(): should return [lat, lng] when there is one single position', () => {
-    const expected = [pins[0][1].toFixed(5), pins[0][2].toFixed(5)];
+    const expected = [pins[0][0].toFixed(5), pins[0][1].toFixed(5)];
     const center = mapUtils.getMapCenter([pins[0]]);
     expect(center).toEqual(expected);
   });
@@ -120,8 +118,8 @@ describe('Map Utils', () => {
     const map = 'map';
     markerFactory.mockImplementation(param => param);
     const markers = mapUtils.getNewMarkers(pins, map);
-    expect(markers[0]).toEqual({ map: 'map', position: { lat: pins[0][1], lng: pins[0][2] } });
-    expect(markers[1]).toEqual({ map: 'map', position: { lat: pins[1][1], lng: pins[1][2] } });
+    expect(markers[0]).toEqual({ map: 'map', position: { lat: pins[0][0], lng: pins[0][1] } });
+    expect(markers[1]).toEqual({ map: 'map', position: { lat: pins[1][0], lng: pins[1][1] } });
   });
 
   it('addMarkers(): should set each maker on map', () => {

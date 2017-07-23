@@ -121,7 +121,6 @@ describe('<Map />', () => {
   it('should have the correct PropTypes', () => {
     const propTypes = {
       locations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-      url: PropTypes.string.isRequired,
     };
     expect(Map.propTypes).toEqual(propTypes);
   });

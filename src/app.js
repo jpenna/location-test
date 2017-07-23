@@ -48,7 +48,6 @@ export default class App extends Component {
             <div className="column is-4 map-column">
               <Map
                 locations={this.state.locations}
-                url={this.state.url}
               />
             </div>
             <div className="column is-4 web-column">
