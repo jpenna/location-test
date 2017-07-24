@@ -81,6 +81,7 @@ None
 - [ ] Add icons for *Your Location* nad *Website Location* next to <LocationData /> titles to ease understanding of the page
 - [ ] Hide info balloon (which explains the request data) with timeout on mouseLeave
 - [ ] Add spinner while page is loading
+- [ ] Add route for searched websites (BACK looks for the previous site)
 
 ----
 
